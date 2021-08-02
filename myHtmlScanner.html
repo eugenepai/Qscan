@@ -15,12 +15,12 @@
             console.log('Scan result: ${decodedText}', decodedResult);
         }
         var html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader", { fps: 10, qrbox: 250 });
+            "reader", { fps: 10, qrbox: 500 });
         html5QrcodeScanner.render(onScanSuccess);
 
         // [4] Optional - Stop scanning after the code is scanned? -----------------
         var html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader", { fps: 10, qrbox: 250 });
+            "reader", { fps: 10, qrbox: 500 });
                 
         function onScanSuccess(decodedText, decodedResult) {
             // Handle on success condition with the decoded text or result.
@@ -42,7 +42,7 @@
         }
 
         var html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader", { fps: 10, qrbox: 250 });
+            "reader", { fps: 10, qrbox: 500 });
         html5QrcodeScanner.render(onScanSuccess, onScanError);
 
     </script>
