@@ -10,18 +10,17 @@
 
 <body>
     
-    <div id="barcodeContent">barcodeContent here</div>
+    <div id="barcodeContent1">barcodeContent here1</div>
     <br/>
     <video id="preview"></video>
     <br/>
     <div id="barcodeContent">barcodeContent here</div>
 
     <script type="text/javascript">
-        let scanner = new Instascan.Scanner({
-            continuous: true,
-            video: document.getElementById('preview'),
-            facingMode: {exact: "environment"}
-        });
+        let scanner = new Instascan.Scanner({ continuous: true,
+                                              video: document.getElementById('preview'),
+                                              facingMode: {exact: "environment"} 
+                                            });
 
         scanner.addListener('scan', function (content) {
             console.log(content);
