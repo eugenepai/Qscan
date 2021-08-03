@@ -10,7 +10,7 @@
 
 <body>
     
-    <div id="barcodeContent1">barcodeContent here1</div>
+    <div id="barcodeContent11">barcodeContent here1</div>
     <br/>
     <video id="preview"></video>
     <br/>
@@ -23,7 +23,7 @@
                                             });
 
         scanner.addListener('scan', function (content) {
-            console.log(content);
+            alert(content);
             document.getElementById("barcodeContent").innerHTML = content;
             // getConfirmation();
 
