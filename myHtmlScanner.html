@@ -6,7 +6,7 @@
 
 <body>
     <div id="reader" width="500px"></div>
-    <div id="qrcodeContent"></div>
+    <div id="qrcodeContent">scan result</div>
 
 
     <script>
@@ -17,12 +17,12 @@
             console.log('Scan result: ${decodedText}', decodedResult);
         }
         var html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader", { fps: 10, qrbox: 250 });
+            "reader", { fps: 10, qrbox: 350 });
         html5QrcodeScanner.render(onScanSuccess);
 
         // [4] Optional - Stop scanning after the code is scanned? 
         var html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader", { fps: 10, qrbox: 250 });
+            "reader", { fps: 10, qrbox: 350 });
                 
         function onScanSuccess(decodedText, decodedResult) {
             // Handle on success condition with the decoded text or result.
@@ -44,7 +44,7 @@
         }
 
         var html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader", { fps: 10, qrbox: 500 });
+            "reader", { fps: 10, qrbox: 350 });
         html5QrcodeScanner.render(onScanSuccess, onScanError);
 
     </script>
