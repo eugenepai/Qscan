@@ -1,51 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="html5-qrcode.min.js"></script>
+    <title>Instascan</title>
+    <script type="text/javascript" src="instascan.min.js"></script>
+    <!-- 載入instascan.min.js -->
 </head>
 
 <body>
-    <div id="reader" width="500px"></div>
+    <video id="preview"></video>
+    <div id="qrcodeContent"></div>
+    <!-- 詢問是否允許開啟相機後，會顯示在這個元素裡 -->
+    <!-- ---------- -->
+    <!-- 以下程式面 -->
+    <script type="text/javascript">
+    let scanner = new Instascan.Scanner({video: document.getElementById('preview')});
+    // 開啟一個新的掃描
+    // 宣告變數scanner，在html<video>標籤id為preview的地方開啟相機預覽。
+    // Notice:這邊注意一定要用<video>的標籤才能使用，詳情請看他的github API的部分解釋。
 
+    scanner.addListener('scan', function(content) {
+        console.log(content);
+        document.getElementById("qrcodeContent").innerHTML = content;
+    });
+    //開始偵聽掃描事件，若有偵聽到印出內容。
 
-    <script>
-        //  [3] Initialize -------------------------------------------------------
-        function onScanSuccess(decodedText, decodedResult) {
-            // Handle on success condition with the decoded text or result.
-            console.log('Scan result: ${decodedText}', decodedResult);
+    Instascan.Camera.getCameras().then(function(cameras) {
+    //取得設備的相機數目
+        if (cameras.length > 0) {
+          ///若設備相機數目大於0 則先開啟第0個相機(程式的世界是從第零個開始的)
+            scanner.start(cameras[0]);
+        } else {
+          //若設備沒有相機數量則顯示"No cameras found";
+          //這裡自行判斷要寫什麼
+            console.error('No cameras found.');
         }
-        var html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader", { fps: 10, qrbox: 250 });
-        html5QrcodeScanner.render(onScanSuccess);
-
-        // [4] Optional - Stop scanning after the code is scanned? -----------------
-        var html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader", { fps: 10, qrbox: 250 });
-                
-        function onScanSuccess(decodedText, decodedResult) {
-            // Handle on success condition with the decoded text or result.
-            console.log('Scan result: ${decodedText}', decodedResult);
-            // ...
-            html5QrcodeScanner.clear();
-            // ^ this will stop the scanner (video feed) and clear the scan area.
-        }
-        html5QrcodeScanner.render(onScanSuccess);
-
-        // [5] Optional - Handle scan failure? ----------------------------------------
-        function onScanSuccess(decodedText, decodedResult) {
-            // Handle on success condition with the decoded text or result.
-            console.log('Scan result: ${decodedText}', decodedResult);
-        }
-
-        function onScanError(errorMessage) {
-            // handle on error condition, with error message
-        }
-
-        var html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader", { fps: 10, qrbox: 500 });
-        html5QrcodeScanner.render(onScanSuccess, onScanError);
-
+    }).catch(function(e) {
+        console.error(e);
+    });
     </script>
-
 </body>
 </html>
