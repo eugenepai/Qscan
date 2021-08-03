@@ -6,19 +6,21 @@
 
 <body>
     <div id="reader" width="500px"></div>
+    <div id="qrcodeContent"></div>
 
 
     <script>
-        //  [3] Initialize -------------------------------------------------------
+        //  [3] Initialize
         function onScanSuccess(decodedText, decodedResult) {
             // Handle on success condition with the decoded text or result.
+            document.getElementById("qrcodeContent").innerHTML = decodedResult;
             console.log('Scan result: ${decodedText}', decodedResult);
         }
         var html5QrcodeScanner = new Html5QrcodeScanner(
             "reader", { fps: 10, qrbox: 250 });
         html5QrcodeScanner.render(onScanSuccess);
 
-        // [4] Optional - Stop scanning after the code is scanned? -----------------
+        // [4] Optional - Stop scanning after the code is scanned? 
         var html5QrcodeScanner = new Html5QrcodeScanner(
             "reader", { fps: 10, qrbox: 250 });
                 
