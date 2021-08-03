@@ -1,3 +1,3 @@
 # Qscan 
-- myHtmlScanner.html [[here]](https://eugenepai.github.io/Qscan/myHtmlScanner.html)
-- insert-eg.html [[here]](https://eugenepai.github.io/Qscan/insert-eg.html)
+- [[myHtmlScanner.html]](https://eugenepai.github.io/Qscan/myHtmlScanner.html)
+- [[instascan]](https://eugenepai.github.io/Qscan/instascan/instascan-t1.html)
