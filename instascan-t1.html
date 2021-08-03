@@ -25,7 +25,7 @@
         scanner.addListener('scan', function (content) {
             console.log(content);
             document.getElementById("barcodeContent").innerHTML = content;
-            getConfirmation();
+            // getConfirmation();
 
             function getConfirmation() {
                 var retVal = confirm("掃描結果：" + content);
