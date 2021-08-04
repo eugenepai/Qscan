@@ -102,8 +102,7 @@
             if (decodedText !== lastResult) {
                 ++countResults;
                 lastResult = decodedText;
-                // alert(`Scan result ${decodedText}`, decodedResult);
-                document.activeElement.innerHTML = decodedText;
+                document.getElementById('colAvalue').innerHTML = decodedText;
             }
         }
 
