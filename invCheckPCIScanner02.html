@@ -102,8 +102,7 @@
             ++countResults;
             lastResult = decodedText;
             document.getElementById("qr-reader-results").innerHTML = "掃描結果：" + decodedText;
-            document.getElementById("colAvalue").value = decodedText;
-            alert(document.activeElement.id);
+            // document.getElementById("colAvalue").value = decodedText;
             document.activeElement.value = decodedText;
         }
     }
