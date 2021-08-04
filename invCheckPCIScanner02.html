@@ -18,7 +18,7 @@
 </head>
 <body>
     <div id="qr-reader" style="width:50vw; text-align:center; border:1px solid red;"></div>
-    <div id="qr-reader-results">here</div>
+    <div id="qr-reader-results">Scanned result: </div>
     <div class="container">        
         <div><span>品　　號：</span><input id="colAvalue" type="text" autocomplete="off"/></div>
         <div><span>品　　名：</span><input id="colBvalue" type="text" autocomplete="off"/></div>
@@ -28,11 +28,12 @@
         <div><span>實盤數量：</span><input id="colFvalue" type="text" autocomplete="off"/></div>
         <div><span>盤點人員：</span><input id="colGvalue" type="text"/></div>
         <div><span>上傳時間：</span><input id="colHvalue" type="text" autocomplete="off"/></div>
-        <button id="uploadBtn">上傳 GoogleSheet</button> 
-        <span>　　　　　　　　　　</span>
         <button id="newItemBtn">盤點下一筆</button>
+        <span>　　　　　</span>
+        <button id="uploadBtn">上傳 GoogleSheet</button>
+        <span>　</span>
+        <span id="sendStatus" style="margin-top:0.5em;"></span>        
     </div>
-    <div id="sendStatus" style="margin-top:0.5em;"></div>
 
     <script>
         function send() {
@@ -85,7 +86,7 @@
 
         let nextItem = document.querySelector('#newItemBtn');
         nextItem.addEventListener('click', clearForm);
-//----------------------------------------------------------------document.activeElement
+//----------------------------------------------------------------
     function docReady(fn) {
         // see if DOM is already available
         if (document.readyState === "complete" || document.readyState === "interactive") {
@@ -102,7 +103,6 @@
             ++countResults;
             lastResult = decodedText;
             document.getElementById("qr-reader-results").innerHTML = "掃描結果：" + decodedText;
-            // document.getElementById("colAvalue").value = decodedText;
             document.activeElement.value = decodedText;
         }
     }
