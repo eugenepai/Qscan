@@ -71,11 +71,11 @@
   <script type="text/javascript">
     function decodeOnce(codeReader, selectedDeviceId) {
       codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
-        console.log(result)
-        document.getElementById('result').textContent = result.text
+        alert(result);
+        document.getElementById('result').textContent = result.text;
       }).catch((err) => {
-        console.error(err)
-        document.getElementById('result').textContent = err
+        console.error(err);
+        document.getElementById('result').textContent = err;
       })
     }
 
@@ -83,8 +83,8 @@
       codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
         if (result) {
           // properly decoded qr code
-          console.log('Found QR code!', result)
-          document.getElementById('result').textContent = result.text
+          alert('Found QR code!', result);
+          document.getElementById('result').textContent = result.text;
         }
 
         if (err) {
@@ -99,15 +99,15 @@
           //  - FormatException
 
           if (err instanceof ZXing.NotFoundException) {
-            console.log('No QR code found.')
+            alert('No QR code found.');
           }
 
           if (err instanceof ZXing.ChecksumException) {
-            console.log('A code was found, but it\'s read value was not valid.')
+            alert('A code was found, but it\'s read value was not valid.');
           }
 
           if (err instanceof ZXing.FormatException) {
-            console.log('A code was found, but it was in a invalid format.')
+            alert('A code was found, but it was in a invalid format.');
           }
         }
       })
@@ -115,27 +115,27 @@
 
     window.addEventListener('load', function () {
       let selectedDeviceId;
-      const codeReader = new ZXing.BrowserQRCodeReader()
-      console.log('ZXing code reader initialized')
+      const codeReader = new ZXing.BrowserQRCodeReader();
+      alert('ZXing code reader initialized');
 
       codeReader.getVideoInputDevices()
         .then((videoInputDevices) => {
           const sourceSelect = document.getElementById('sourceSelect')
-          selectedDeviceId = videoInputDevices[0].deviceId
+          selectedDeviceId = videoInputDevices[0].deviceId;
           if (videoInputDevices.length >= 1) {
             videoInputDevices.forEach((element) => {
-              const sourceOption = document.createElement('option')
-              sourceOption.text = element.label
-              sourceOption.value = element.deviceId
-              sourceSelect.appendChild(sourceOption)
+              const sourceOption = document.createElement('option');
+              sourceOption.text = element.label;
+              sourceOption.value = element.deviceId;
+              sourceSelect.appendChild(sourceOption);
             })
 
             sourceSelect.onchange = () => {
               selectedDeviceId = sourceSelect.value;
             };
 
-            const sourceSelectPanel = document.getElementById('sourceSelectPanel')
-            sourceSelectPanel.style.display = 'block'
+            const sourceSelectPanel = document.getElementById('sourceSelectPanel');
+            sourceSelectPanel.style.display = 'block';
           }
 
           document.getElementById('startButton').addEventListener('click', () => {
@@ -148,18 +148,18 @@
               decodeContinuously(codeReader, selectedDeviceId);
             }
 
-            console.log(`Started decode from camera with id ${selectedDeviceId}`)
+            alert(`Started decode from camera with id ${selectedDeviceId}`);
           })
 
           document.getElementById('resetButton').addEventListener('click', () => {
-            codeReader.reset()
+            codeReader.reset();
             document.getElementById('result').textContent = '';
-            console.log('Reset.')
+            alert('Reset.');
           })
 
         })
         .catch((err) => {
-          console.error(err)
+          console.error(err);
         })
     })
   </script>
