@@ -66,6 +66,7 @@
                             if(response == "成功") {
                                 document.getElementById("sendStatus").innerHTML = "盤點資料上傳成功";
                                 resetTimer = setTimeout(function(){ document.getElementById("sendStatus").innerHTML = ""; }, 1000);
+                                docReady(getBarcode);
                             } 
                         },
             });
@@ -93,8 +94,7 @@
             document.addEventListener("DOMContentLoaded", fn);
         }
     }
-
-    docReady(function () {
+    function getBarcode() {
         var resultContainer = document.getElementById("qr-reader-results");
         var lastResult, countResults = 0;
         function onScanSuccess(decodedText, decodedResult) {
@@ -107,11 +107,26 @@
                 // document.activeElement.value = decodedText;
             }
         }
-
-        // var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", { fps: 10 });
         var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", { fps: 10, qrbox: 250 });
         html5QrcodeScanner.render(onScanSuccess);
-    });
+    }
+    docReady(getBarcode);
+    // docReady(function () {
+    //     var resultContainer = document.getElementById("qr-reader-results");
+    //     var lastResult, countResults = 0;
+    //     function onScanSuccess(decodedText, decodedResult) {
+    //         if (decodedText !== lastResult) {
+    //             ++countResults;
+    //             lastResult = decodedText;
+    //             // document.getElementById("colAvalue").focus();
+    //             document.getElementById("qr-reader-results").innerHTML = "掃描結果：" + decodedText;
+    //             document.getElementById("colAvalue").value = decodedText;
+    //             // document.activeElement.value = decodedText;
+    //         }
+    //     }
+    //     var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", { fps: 10, qrbox: 250 });
+    //     html5QrcodeScanner.render(onScanSuccess);
+    // });
     </script>
 
 </body>
