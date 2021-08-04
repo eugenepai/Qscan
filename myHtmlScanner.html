@@ -140,15 +140,15 @@
 
           document.getElementById('startButton').addEventListener('click', () => {
 
-            const decodingStyle = document.getElementById('decoding-style').value;
+            // const decodingStyle = document.getElementById('decoding-style').value;
 
-            if (decodingStyle == "once") {
+            // if (decodingStyle == "once") {
               decodeOnce(codeReader, selectedDeviceId);
-            } else {
-              decodeContinuously(codeReader, selectedDeviceId);
-            }
+            // } else {
+            //   decodeContinuously(codeReader, selectedDeviceId);
+            // }
 
-            alert(`Started decode from camera with id ${selectedDeviceId}`);
+            // alert(`Started decode from camera with id ${selectedDeviceId}`);
           })
 
           document.getElementById('resetButton').addEventListener('click', () => {
