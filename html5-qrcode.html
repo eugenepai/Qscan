@@ -1,18 +1,18 @@
+<!DOCTYPE html>
 <html>
 <head>
     <title>Html-Qrcode Demo</title>
+    <script src="html5-qrcode.min.js"></script>
 </head>
 <body>
     <div id="qr-reader" style="width:500px"></div>
     <div id="qr-reader-results"></div>
 
-<script src="html5-qrcode.min.js"></script>
+
 <script>
     function docReady(fn) {
         // see if DOM is already available
-        if (document.readyState === "complete"
-            || document.readyState === "interactive") {
-            // call on next available tick
+        if (document.readyState === "complete" || document.readyState === "interactive") {
             setTimeout(fn, 1);
         } else {
             document.addEventListener("DOMContentLoaded", fn);
