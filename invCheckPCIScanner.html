@@ -91,7 +91,6 @@
             setTimeout(fn, 1);
         } else {
             document.addEventListener("DOMContentLoaded", fn);
-            document.getElementById("colAvalue").focus();
         }
     }
 
@@ -102,7 +101,8 @@
             if (decodedText !== lastResult) {
                 ++countResults;
                 lastResult = decodedText;
-                document.getElementById('colAvalue').innerHTML = decodedText;
+                // document.getElementById("colAvalue").focus();
+                document.getElementById("colAvalue").value = decodedText;
             }
         }
 
