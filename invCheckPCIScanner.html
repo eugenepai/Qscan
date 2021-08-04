@@ -19,6 +19,7 @@
 <body>
     <div class="container">
         <div id="qr-reader" style="width:50vw; text-align:center; border:1px solid red;"></div>
+        <div id="qr-reader-results">hhhh</div>
 
         <div><span>品　　號：</span><input id="colAvalue" type="text" autocomplete="off"></div>
         <div><span>品　　名：</span><input id="colBvalue" type="text" autocomplete="off"></div>
@@ -102,6 +103,7 @@
                 ++countResults;
                 lastResult = decodedText;
                 // document.getElementById("colAvalue").focus();
+                document.getElementById('qr-reader-results').innerHTML = decodedText;
                 document.getElementById("colAvalue").value = decodedText;
             }
         }
