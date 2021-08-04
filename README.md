@@ -4,3 +4,4 @@
 - [[https://eugenepai.github.io/Qscan/html5-qrcode.html]](https://eugenepai.github.io/Qscan/html5-qrcode.html)
 - [[https://eugenepai.github.io/Qscan/instascan-t1.html]](https://eugenepai.github.io/Qscan/instascan-t1.html)
 - [[https://eugenepai.github.io/Qscan/invCheckPCI.html]](https://eugenepai.github.io/Qscan/invCheckPCI.html)
+- [[https://eugenepai.github.io/Qscan/invCheckPCIScanner.html]](https://eugenepai.github.io/Qscan/invCheckPCIScanner.html)
