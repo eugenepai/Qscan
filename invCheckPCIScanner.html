@@ -18,6 +18,7 @@
 </head>
 <body>
     <div id="qr-reader" style="width:50vw; text-align:center; border:1px solid red;"></div>
+    <div id="qr-reader-results">.....</div>
     <div class="container">        
         <div><span>品　　號：</span><input id="colAvalue" type="text" autocomplete="off"></div>
         <div><span>品　　名：</span><input id="colBvalue" type="text" autocomplete="off"></div>
@@ -94,14 +95,14 @@
     }
 
     docReady(function () {
-        var resultContainer = document.getElementById('qr-reader-results');
+        var resultContainer = document.getElementById("qr-reader-results");
         var lastResult, countResults = 0;
         function onScanSuccess(decodedText, decodedResult) {
             if (decodedText !== lastResult) {
                 ++countResults;
                 lastResult = decodedText;
                 // document.getElementById("colAvalue").focus();
-                document.getElementById('qr-reader-results').innerHTML = "掃描結果：" + decodedText;
+                document.getElementById("qr-reader-results").innerHTML = "掃描結果：" + decodedText;
                 document.getElementById("colAvalue").value = decodedText;
                 // document.activeElement.value = decodedText;
             }
