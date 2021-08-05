@@ -9,25 +9,23 @@
     <script src="html5-qrcode.min.js"></script>
 
 <style type="text/css">
-    button{background-color:white; border: 1px solid black;}
-
-    .checkForm{text-align:left; width:80vw; background-color:lightgray; padding: 0.5vw;
-               border: 1px solid black;font-size: 15px;}
+    .checkForm{text-align:left; width: 90vw;background-color:lightgray; padding: 20px;border: 1px solid black;font-size: 15px;}
     .checkForm div{margin-bottom: 1vw; width: 80vw;}
     .checkForm input{width: auto;}
-    .inlineBlock {display:inline-block; vertical-align:top; margin:5vw;}
-    .scannerWindow { width:50vw; height:50vw; border:1px solid red; display:inline-block; }
+    button{background-color: white;border: 1px solid black;}
+    .scannerWindow {
+        width:50vw; height:50vw; margin:auto; border:1px solid red;
+
+    }
 </style>
 </head>
 <body>
-    <div id="scannerWindowId">
+    <div id="scannerWindow">
+        <!-- <div id="qr-reader" style="width:50vw; height:50vw; margin:auto; border:1px solid red;"></div> -->
         <div id="qr-reader" class="scannerWindow"></div>
-        <div class="inlineBlock">
-            <button id="startScannerBtn">開啟相機</button><br/>
-            <br/><hr/><br/>
-            <button id="stopScannerBtn">關閉相機</button><br/>
-            <br/><hr/><br/>
-            <div id="qr-reader-results">Scanned result: </div>
+        <div>
+            <button id="startScannerBtn">開啟相機</button> <span>　　</span>　<button id="stopScannerBtn">關閉相機</button>
+            <span id="qr-reader-results">  Scanned result: </span>
         </div>
     </div>
     <hr/>
