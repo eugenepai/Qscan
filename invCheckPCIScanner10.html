@@ -9,29 +9,27 @@
     <script src="html5-qrcode.min.js"></script>
 
 <style type="text/css">
-    .container{text-align:left; width: 90vw;background-color:lightgray; padding: 20px;border: 1px solid black;font-size: 15px;}
-    .container div{margin-bottom: 1vw; width: 80vw;}
-    .container input{width: auto;}
+    .checkForm{text-align:left; width: 90vw;background-color:lightgray; padding: 20px;border: 1px solid black;font-size: 15px;}
+    .checkForm div{margin-bottom: 1vw; width: 80vw;}
+    .checkForm input{width: auto;}
     button{background-color: white;border: 1px solid black;}
     .scannerWindow {
-        display:block; width:25vh; height:25vh; text-align:center; margin:auto; padding:0; border:1px solid red;
-        /* display: block; 
-        margin: 0; 
-        text-align: center;
-        border:1px solid red;
-        width:25vh; 
-        height:25vh; */
+        width:50vw; height:50vw; margin:auto; border:1px solid red;
+
     }
 </style>
 </head>
 <body>
-    <div id="qr-reader" style="width:50vw; height:50vw; margin:auto; border:1px solid red;"></div>
-    <div>
-        <button id="startScannerBtn">開啟相機</button> <span>　　</span>　<button id="stopScannerBtn">關閉相機</button>
-        <span id="qr-reader-results">  Scanned result: </span>
+    <div id="scannerWindow">
+        <!-- <div id="qr-reader" style="width:50vw; height:50vw; margin:auto; border:1px solid red;"></div> -->
+        <div id="qr-reader" class="scannerWindow"></div>
+        <div>
+            <button id="startScannerBtn">開啟相機</button> <span>　　</span>　<button id="stopScannerBtn">關閉相機</button>
+            <span id="qr-reader-results">  Scanned result: </span>
+        </div>
     </div>
     <hr/>
-    <div class="container">
+    <div class="checkForm">
         <div> <span>品　　號：</span> <input id="colAvalue" type="text" autocomplete="off" inputmode="none"/> </div>
         <div> <span>品　　名：</span> <input id="colBvalue" type="text" autocomplete="off" inputmode="none"/> </div>
         <div> <span>批　　號：</span> <input id="colCvalue" type="text" autocomplete="off" inputmode="none"/> </div>
@@ -109,7 +107,7 @@
             else { document.addEventListener("DOMContentLoaded", fn); }
         }        
         function onScanSuccess(decodedText, decodedResult) {
-            var resultContainer = document.getElementById("qr-reader-results");
+            // var resultContainer = document.getElementById("qr-reader-results");
             var lastResult, countResults = 0;
             if (decodedText !== lastResult) {
                 ++countResults;
