@@ -3,20 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>PCI Inventory Physical Check System 03</title>
+    <title>PCI Inventory Physical Check System 10</title>
 
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="html5-qrcode.min.js"></script>
 
-<style>
+<style type="text/css">
     .container{text-align:left; width: 100vw;background-color:lightgray; padding: 20px;border: 1px solid black;font-size: 15px;}
     .container div{margin-bottom: 1vw; width: 80vw;}
     .container input{width: auto;}
     button{background-color: white;border: 1px solid black;}
+    .scannerWindow {
+        display:block; width:25vh; height:25vh; text-align:center; margin:auto; padding:0; border:1px solid red;
+        /* display: block; 
+        margin: 0; 
+        text-align: center;
+        border:1px solid red;
+        width:25vh; 
+        height:25vh; */
+    }
 </style>
 </head>
 <body>
-    <div id="qr-reader" style="width:25%; height:25%; text-align:center; margin:0; padding:0;">　</div>
+    <div id="qr-reader" style="width:20vw; height:15vw; text-align:left; border:1px solid red;"></div>
     <div>
         <button id="startScannerBtn">開啟相機</button> <span>　　</span>　<button id="stopScannerBtn">關閉相機</button>
         <span id="qr-reader-results">  Scanned result: </span>
@@ -115,12 +124,12 @@
         // docReady(getBarcodeOwnInterface);
 
         function startScanner() {
-            const html5QrCode = new Html5Qrcode("qr-reader");
-            const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+            html5QrCode = new Html5Qrcode("qr-reader");
+            qrCodeSuccessCallback = (decodedText, decodedResult) => {
                 onScanSuccess(decodedText, decodedResult);
                 /* handle success */
             };
-            const config = { fps: 10, qrbox: 200 };
+            const config = { fps: 10, qrbox: 100 };
             
             html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);    // use back camera
         }
