@@ -30,6 +30,7 @@
         <button id="startScannerBtn">開啟相機</button> <span>　　</span>　<button id="stopScannerBtn">關閉相機</button>
         <span id="qr-reader-results">  Scanned result: </span>
     </div>
+    <hr/>
     <div class="container">
         <div> <span>品　　號：</span> <input id="colAvalue" type="text" autocomplete="off" inputmode="none"/> </div>
         <div> <span>品　　名：</span> <input id="colBvalue" type="text" autocomplete="off" inputmode="none"/> </div>
@@ -127,7 +128,6 @@
             html5QrCode = new Html5Qrcode("qr-reader");
             qrCodeSuccessCallback = (decodedText, decodedResult) => {
                 onScanSuccess(decodedText, decodedResult);
-                /* handle success */
             };
             const config = { fps: 10, qrbox: 100 };
             
