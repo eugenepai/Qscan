@@ -25,7 +25,7 @@
 </style>
 </head>
 <body>
-    <div id="qr-reader" style="width:20vw; height:15vw; text-align:left; border:1px solid red;"></div>
+    <div id="qr-reader" style="width:40vw; height:30vw; text-align:left; border:1px solid red;"></div>
     <div>
         <button id="startScannerBtn">開啟相機</button> <span>　　</span>　<button id="stopScannerBtn">關閉相機</button>
         <span id="qr-reader-results">  Scanned result: </span>
@@ -116,7 +116,7 @@
             }
         }
         function getBarcode() {
-            var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", { fps: 10, qrbox: 240 });
+            var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", { fps: 10, qrbox: 100 });
             html5QrcodeScanner.render(onScanSuccess);
         }
         // 執行條碼掃描
