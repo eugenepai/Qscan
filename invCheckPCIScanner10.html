@@ -9,7 +9,7 @@
     <script src="html5-qrcode.min.js"></script>
 
 <style type="text/css">
-    button{background-color:white; border: 1px solid black; margin:1em;}
+    button{background-color:white; border: 1px solid black; }
 
     .checkForm{text-align:left; width:88vw; background-color:lightgray; padding: 2vw;
                border: 1px solid black; font-size: 15px;}
@@ -23,9 +23,9 @@
     <div id="scannerWindowId">
         <div id="qr-reader" class="scannerWindow"></div>
         <div class="inlineBlock">
-            <button id="startScannerBtn">開啟相機</button><br/>
+            <button id="startScannerBtn" style="margin:1em;">開啟相機</button><br/>
             
-            <button id="stopScannerBtn">關閉相機</button><br/>
+            <button id="stopScannerBtn" style="margin:1em;">關閉相機</button><br/>
             <br/><hr/>
             <div id="qr-reader-results" style="word-break:break-all; width:30vw;">
                 Scanned: 
@@ -47,7 +47,7 @@
         <span>　　　　　</span>
         <button id="newItemBtn">盤點下一筆</button>
         <hr/>
-        <div>狀態：<span id="sendStatus" style="margin-top:0.5em;color:red;font-weight:bolder;"></span></div>        
+        <div>狀態：<span id="sendStatus" style="color:red;font-weight:bolder;"></span></div>        
     </div>
     <!-- ******************************************************************************************** -->
     <script>
