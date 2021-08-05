@@ -24,10 +24,10 @@
         <div id="qr-reader" class="scannerWindow"></div>
         <div class="inlineBlock">
             <button id="startScannerBtn">開啟相機</button><br/>
-            <br/><hr/><br/>
+            <hr/>
             <button id="stopScannerBtn">關閉相機</button><br/>
-            <br/><hr/><br/>
-            <div id="qr-reader-results">Scanned result: </div>
+            <hr/>
+            <span id="qr-reader-results">Scanned: </span>
         </div>
     </div>
     <hr/>
@@ -104,10 +104,10 @@
         document.querySelector('#newItemBtn').addEventListener('click', clearForm); //盤點下一筆
 
         // ========== qrcode 掃描功能 ========================================
-        function docReady(fn) {
-            if ( document.readyState === "complete" || document.readyState === "interactive" ) { setTimeout(fn, 1); } 
-            else { document.addEventListener("DOMContentLoaded", fn); }
-        }        
+        // function docReady(fn) {
+        //     if ( document.readyState === "complete" || document.readyState === "interactive" ) { setTimeout(fn, 1); } 
+        //     else { document.addEventListener("DOMContentLoaded", fn); }
+        // }        
         function onScanSuccess(decodedText, decodedResult) {
             // var resultContainer = document.getElementById("qr-reader-results");
             var lastResult, countResults = 0;
@@ -118,10 +118,10 @@
                 document.activeElement.value = decodedText;
             }
         }
-        function getBarcode() {
-            var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", { fps: 10, qrbox: 100 });
-            html5QrcodeScanner.render(onScanSuccess);
-        }
+        // function getBarcode() {
+        //     var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", { fps: 10, qrbox: 100 });
+        //     html5QrcodeScanner.render(onScanSuccess);
+        // }
         // 執行條碼掃描
         // docReady(getBarcode);
         // docReady(getBarcodeOwnInterface);
