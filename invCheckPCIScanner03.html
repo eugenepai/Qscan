@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>PCI Inventory Physical Check System 03</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="html5-qrcode.min.js"></script>
+
+<style>
+    .container{text-align:left; width: 100vw;background-color:lightgray; padding: 20px;border: 1px solid black;font-size: 15px;}
+    .container div{margin-bottom: 1vw; width: 80vw;}
+    .container input{width: auto;}
+    button{background-color: white;border: 1px solid black;}
+</style>
+</head>
+<body>
+    <div id="qr-reader" style="width:100vw; text-align:left; border:1px solid red;"></div>
+    <div id="qr-reader-results">Scanned result: </div>
+    <div class="container">
+        <div> <span>品　　號：</span> <input id="colAvalue" type="text" autocomplete="off" inputmode="none"/> </div>
+        <div> <span>品　　名：</span> <input id="colBvalue" type="text" autocomplete="off" inputmode="none"/> </div>
+        <div> <span>批　　號：</span> <input id="colCvalue" type="text" autocomplete="off" inputmode="none"/> </div>
+        <div> <span>單　　位：</span> <input id="colDvalue" type="text" autocomplete="off" inputmode="none"/> </div>
+        <div> <span>數　　量：</span> <input id="colEvalue" type="text" autocomplete="off" inputmode="none"/> </div>
+
+        <div> <span>實盤數量：</span> <input id="colFvalue" type="text" autocomplete="off" inputmode="decimal"/> </div>
+        <div> <span>盤點人員：</span> <input id="colGvalue" type="text" inputmode="text"/> </div>
+        <div> <span>上傳時間：</span> <input id="colHvalue" type="text" autocomplete="off" inputmode="none"/> </div>
+        <button id="uploadBtn" style="background-color:yellow;">上傳資料</button>
+        <span>　　　　　</span>
+        <button id="newItemBtn">盤點下一筆</button>
+
+        <div style="margin-top:0.5em;">狀態：<span id="sendStatus" style="margin-top:0.5em;color:red;font-weight:bolder;"></span></div>        
+    </div>
+    <!-- ******************************************************************************************** -->
+    <script>
+
+        function inputFieldAttr(fieldColor, fieldValue) {
+            var x = document.getElementsByTagName("input");
+            if (fieldColor != "unchange") {
+               for (var i = 0; i < x.length; i++) { x[i].style.backgroundColor = fieldColor; }
+            }
+            if (fieldValue != "unchange") {
+                for (var i = 0; i < x.length; i++) { x[i].value = fieldValue; }
+            }
+        }
+
+        function send() {
+            var newDate = new Date();
+            var uploadTime = newDate.toLocaleDateString() + " " + newDate.toLocaleTimeString();
+            document.getElementById("colHvalue").value = uploadTime;
+
+            let colA = document.querySelector('#colAvalue').value;
+            let colB = document.querySelector('#colBvalue').value;
+            let colC = document.querySelector('#colCvalue').value;
+            let colD = document.querySelector('#colDvalue').value;
+            let colE = document.querySelector('#colEvalue').value;
+            let colF = document.querySelector('#colFvalue').value;
+            let colG = document.querySelector('#colGvalue').value;
+            let colH = document.querySelector('#colHvalue').value;
+            //------------------------------------------------------------------
+            // sendingTimer = setTimeout(function(){ document.getElementById("sendStatus").innerHTML = "傳送中..."; }, 1000);
+            document.getElementById("sendStatus").innerHTML = "傳送中...";
+
+            $.ajax({
+                url: "https://script.google.com/macros/s/AKfycbxf5-2vIlHFOdTDJQRInlTFf9G_RU_RNPgO-0lV30JJFeO46TLX_5n4VygXXhQ1nxg/exec",
+                data: { "colA":colA,    "colB":colB,    "colC":colC,    "colD":colD,    "colE":colE,
+                        "colF":colF,    "colG":colG,    "colH":colH
+                      },
+                success: function(response) { 
+                            if(response == "成功") {
+                                document.getElementById("sendStatus").innerHTML = "盤點資料上傳成功";
+                                // resetTimer = setTimeout(function(){ document.getElementById("sendStatus").innerHTML = ""; }, 1000);
+                                inputFieldAttr("yellow", "unchange");
+                            }                             
+                        },
+            });
+        };
+        function clearForm(){
+            document.getElementById("sendStatus").innerHTML = "";
+            var colG = document.getElementById("colGvalue").value 
+            inputFieldAttr("white", "");                
+            document.getElementById("colGvalue").value = colG; //盤點人員姓名保留
+        }
+        document.querySelector('#uploadBtn').addEventListener('click', send);   // 上傳資料
+        document.querySelector('#newItemBtn').addEventListener('click', clearForm); //盤點下一筆
+        //----------------------------------------------------------------
+        function docReady(fn) {
+            if ( document.readyState === "complete" || document.readyState === "interactive" ) { setTimeout(fn, 1); } 
+            else { document.addEventListener("DOMContentLoaded", fn); }
+        }        
+        function onScanSuccess(decodedText, decodedResult) {
+            var resultContainer = document.getElementById("qr-reader-results");
+            var lastResult, countResults = 0;
+            if (decodedText !== lastResult) {
+                ++countResults;
+                lastResult = decodedText;
+                document.getElementById("qr-reader-results").innerHTML = "掃描結果：" + decodedText;
+                document.activeElement.value = decodedText;
+            }
+        }
+        function getBarcode() {
+            var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", { fps: 10, qrbox: 250 });
+            html5QrcodeScanner.render(onScanSuccess);
+        }
+        // 執行條碼掃描
+        docReady(getBarcode);
+    </script>
+
+</body>
+</html>
