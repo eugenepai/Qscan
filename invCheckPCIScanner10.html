@@ -129,7 +129,7 @@
             qrCodeSuccessCallback = (decodedText, decodedResult) => {
                 onScanSuccess(decodedText, decodedResult);
             };
-            const config = { fps: 10, qrbox: 100 };
+            const config = { fps:10, qrbox:100, aspectRatio:1 };
             
             html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);    // use back camera
         }
