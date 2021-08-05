@@ -115,7 +115,7 @@
         function startScanner() {
             html5QrCode = new Html5Qrcode("qr-reader");
             qrCodeSuccessCallback = (decodedText, decodedResult) => { onScanSuccess(decodedText, decodedResult); };
-            const config = { fps:10, qrbox:100, aspectRatio:1.0 };
+            const config = { fps:10, qrbox:150, aspectRatio:1.0 };
             
             html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);    // use back camera
         }
