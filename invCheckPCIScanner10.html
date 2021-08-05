@@ -9,7 +9,7 @@
     <script src="html5-qrcode.min.js"></script>
 
 <style type="text/css">
-    .container{text-align:left; width: 100vw;background-color:lightgray; padding: 20px;border: 1px solid black;font-size: 15px;}
+    .container{text-align:left; width: 90vw;background-color:lightgray; padding: 20px;border: 1px solid black;font-size: 15px;}
     .container div{margin-bottom: 1vw; width: 80vw;}
     .container input{width: auto;}
     button{background-color: white;border: 1px solid black;}
@@ -37,7 +37,7 @@
         <div> <span>批　　號：</span> <input id="colCvalue" type="text" autocomplete="off" inputmode="none"/> </div>
         <div> <span>單　　位：</span> <input id="colDvalue" type="text" autocomplete="off" inputmode="none"/> </div>
         <div> <span>數　　量：</span> <input id="colEvalue" type="text" autocomplete="off" inputmode="none"/> </div>
-
+        <hr/>
         <div> <span>實盤數量：</span> <input id="colFvalue" type="text" autocomplete="off" inputmode="decimal"/> </div>
         <div> <span>盤點人員：</span> <input id="colGvalue" type="text" inputmode="text"/> </div>
         <div> <span>上傳時間：</span> <input id="colHvalue" type="text" autocomplete="off" inputmode="none"/> </div>
@@ -45,7 +45,9 @@
         <span>　　　　　</span>
         <button id="newItemBtn">盤點下一筆</button>
 
-        <div style="margin-top:0.5em;">狀態：<span id="sendStatus" style="margin-top:0.5em;color:red;font-weight:bolder;"></span></div>        
+        <div style="margin-top:0.5em;">
+            狀態：<span id="sendStatus" style="margin-top:0.5em;color:red;font-weight:bolder;"></span>
+        </div>        
     </div>
     <!-- ******************************************************************************************** -->
     <script>
