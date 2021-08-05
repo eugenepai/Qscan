@@ -11,9 +11,9 @@
 <style type="text/css">
     button{background-color:white; border: 1px solid black;}
 
-    .checkForm{text-align:left; width:80vw; background-color:lightgray; padding: 0.5vw;
+    .checkForm{text-align:left; width:80vw; background-color:lightgray; padding: 2vw;
                border: 1px solid black;font-size: 15px;}
-    .checkForm div{margin-bottom: 1vw; width: 80vw;}
+    .checkForm div{margin-bottom: 1vw; width: 85vw;}
     .checkForm input{width: auto;}
     .inlineBlock {display:inline-block; vertical-align:top; margin:5vw;}
     .scannerWindow { width:50vw; height:50vw; border:1px solid red; display:inline-block; }
@@ -46,7 +46,7 @@
         <button id="newItemBtn">盤點下一筆</button>
 
         <div style="margin-top:0.5em;">
-            狀態1：<span id="sendStatus" style="margin-top:0.5em;color:red;font-weight:bolder;"></span>
+            狀態：<span id="sendStatus" style="margin-top:0.5em;color:red;font-weight:bolder;"></span>
         </div>        
     </div>
     <!-- ******************************************************************************************** -->
@@ -79,7 +79,7 @@
             document.getElementById("sendStatus").innerHTML = "傳送中...";
 
             $.ajax({
-                url: "https://script.google.com/macros/s/AKfycbxf5-2vIlHFOdTDJQRInlTFf9G_RU_RNPgO-0lV30JJFeO46TLX_5n4VygXXhQ1nxg/exec",
+                url:"https://script.google.com/macros/s/AKfycbxf5-2vIlHFOdTDJQRInlTFf9G_RU_RNPgO-0lV30JJFeO46TLX_5n4VygXXhQ1nxg/exec",
                 data: { "colA":colA,    "colB":colB,    "colC":colC,    "colD":colD,    "colE":colE,
                         "colF":colF,    "colG":colG,    "colH":colH
                       },
@@ -103,28 +103,16 @@
         document.querySelector('#uploadBtn').addEventListener('click', send);   // 上傳資料
         document.querySelector('#newItemBtn').addEventListener('click', clearForm); //盤點下一筆
 
-        // ========== qrcode 掃描功能 ========================================
-        // function docReady(fn) {
-        //     if ( document.readyState === "complete" || document.readyState === "interactive" ) { setTimeout(fn, 1); } 
-        //     else { document.addEventListener("DOMContentLoaded", fn); }
-        // }        
+        // ========== qrcode 掃描功能 ========================================     
         function onScanSuccess(decodedText, decodedResult) {
-            // var resultContainer = document.getElementById("qr-reader-results");
             var lastResult, countResults = 0;
             if (decodedText !== lastResult) {
                 ++countResults;
                 lastResult = decodedText;
-                document.getElementById("qr-reader-results").innerHTML = "掃描結果：" + decodedText;
+                document.getElementById("qr-reader-results").innerHTML = decodedText;
                 document.activeElement.value = decodedText;
             }
         }
-        // function getBarcode() {
-        //     var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", { fps: 10, qrbox: 100 });
-        //     html5QrcodeScanner.render(onScanSuccess);
-        // }
-        // 執行條碼掃描
-        // docReady(getBarcode);
-        // docReady(getBarcodeOwnInterface);
 
         function startScanner() {
             html5QrCode = new Html5Qrcode("qr-reader");
@@ -144,8 +132,6 @@
 
         document.querySelector('#startScannerBtn').addEventListener('click', startScanner);   // start camera
         document.querySelector('#stopScannerBtn').addEventListener('click', stopScanner);   // start camera
-
     </script>
-
 </body>
 </html>
