@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>PCI Inventory Physical Check ver.01</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+<style type="text/css">
+    button{background-color:white; border: 1px solid black; }
+
+    .checkForm{text-align:left; width:88vw; background-color:lightgray; padding: 2vw;
+               border: 1px solid black; font-size: 15px;}
+    .checkForm div{margin-bottom: 1vw; width: 85vw;}
+    .checkForm input{width: auto;}
+    .inlineBlock {display:inline-block; vertical-align:top; margin:5vw;}
+    .scannerWindow { width:50vw; height:50vw; border:1px solid red; display:inline-block; }
+</style>
+</head>
+<body>
+    <div class="checkForm">
+        <div>底稿編號： <input id="colA_val" type="text" autocomplete="on" inputmode="none" value="11001M"/> </div>
+        <div>底稿序號： <input id="colB_val" type="text" autocomplete="off" inputmode="decimal" value="00001"/> </div>
+        <hr/>
+        <div> 庫別： (<span id="colF_val"> </span>) <span id="colG_val"> </span> </div>
+        <hr/>
+        <div> 品　　號： <span id="colC_val"> </span> </div>
+        <div> 品　　名： <span id="colD_val"> </span> </div>
+        <div> 規　　格： <span id="colE_val"> </span> </div>
+        <div> 批　　號： <span id="colI_val"> </span> </div>
+        <hr/>
+        <div> 單　　位： <span id="colH_val"> </span> </div>
+        <div> 帳面數量： <span id="colM_val"> </span> </div>
+        <hr/>
+        <div> 初盤數量： <input id="colJ_val" type="text" autocomplete="off" inputmode="decimal"/> </div>
+        <div> 初盤人員： <input id="colO_val" type="text" autocomplete="on"  inputmode="text"/> </div>
+        <div> 初盤時間： <input id="colP_val" type="text" autocomplete="off" inputmode="none"/> </div>
+        <hr/>
+        <div> 複盤數量： <input id="colK_val" type="text" autocomplete="off" inputmode="decimal"/> </div>
+        <div> 複盤人員： <input id="colQ_val" type="text" autocomplete="on"  inputmode="text"/> </div>
+        <div> 複盤時間： <input id="colR_val" type="text" autocomplete="off" inputmode="none"/> </div>
+        <hr/>
+        <div> 盤點數量： <input id="colL_val" type="text" autocomplete="off" inputmode="decimal"/> </div>
+        <hr/>
+        <div> 備　　註： <input id="colN_val" type="text" autocomplete="off" inputmode="none"/> </div>
+
+        <button id="uploadBtn" style="background-color:yellow;">上傳資料</button>
+        <span>　　　　　</span>
+        <button id="newItemBtn">盤點下一筆</button>
+        <hr/>
+        <div>狀態：<span id="sendStatus" style="color:red;font-weight:bolder;"></span></div>        
+    </div>
+    <!-- ******************************************************************************************** -->
+    <script>
+        let googleScriptUrl = "https://script.google.com/macros/s/AKfycbyE8011qp1GrQHMuMWo3A09Yzbl_E0ikC_rHJ9k7EW_7SlxXInKnXKQZK1DDOEzgYAI/exec"
+        // ========== 盤點項目  ========================================
+        function inputFieldAttr(fieldColor, fieldValue) {
+            var x = document.getElementsByTagName("input");
+            if (fieldColor != "unchange") {
+               for (var i = 0; i < x.length; i++) { x[i].style.backgroundColor = fieldColor; }
+            }
+            if (fieldValue != "unchange") {
+                for (var i = 0; i < x.length; i++) { x[i].value = fieldValue; }
+            }
+        }
+        // read data from google sheet by 底稿編號/底稿序號
+        function readFromGS() {
+
+        }
+        
+        // send 盤點資料 to google sheet
+        function send() {
+            var newDate = new Date();
+            var uploadTime = newDate.toLocaleDateString() + " " + newDate.toLocaleTimeString();
+            document.getElementById("colP_val").value = uploadTime;
+
+            let colA = document.querySelector('#colA_val').value;
+            let colB = document.querySelector('#colB_val').value;
+
+            let colJ = document.querySelector('#colJ_val').value;
+            let colO = document.querySelector('#colO_val').value;
+            let colP = document.querySelector('#colP_val').value;
+
+            //------------------------------------------------------------------
+            document.getElementById("sendStatus").innerHTML = "傳送中...";
+
+            $.ajax({
+                url: googleScriptUrl,
+                data: { "colA":colA,    "colB":colB,
+                        "colJ":colJ,    "colO":colO,    "colP":colP  },
+                success: function(response) { 
+                            // if(response == "成功") {
+                                document.getElementById("sendStatus").innerHTML = response;
+                                inputFieldAttr("yellow", "unchange");
+                            // }                             
+                        },
+            });
+        };
+
+        function clearForm(){
+            document.getElementById("sendStatus").innerHTML = ""; //reset傳送狀態為空白
+            //清空所有input欄位，但保留盤點人員姓名
+            var colG = document.getElementById("colGvalue").value 
+            inputFieldAttr("white", "");                
+            document.getElementById("colGvalue").value = colG; 
+        }
+        document.querySelector('#uploadBtn').addEventListener('click', send);   // 上傳資料
+        document.querySelector('#newItemBtn').addEventListener('click', clearForm); //盤點下一筆
+
+    </script>
+</body>
+</html>
