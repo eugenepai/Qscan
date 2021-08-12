@@ -7,6 +7,7 @@
 - [[https://eugenepai.github.io/Qscan/invCheckPCIScanner.html]](https://eugenepai.github.io/Qscan/invCheckPCIScanner.html)
 - [[https://eugenepai.github.io/Qscan/invCheckPCIScanner02.html]](https://eugenepai.github.io/Qscan/invCheckPCIScanner02.html)
 - [[https://eugenepai.github.io/Qscan/invCheckPCIScanner10.html]](https://eugenepai.github.io/Qscan/invCheckPCIScanner10.html)
--StockPhysicalCheck01
+
 
 -[[https://eugenepai.github.io/Qscan/StockPhysicalCheck01.html]](https://eugenepai.github.io/Qscan/StockPhysicalCheck01.html)
+-[[https://eugenepai.github.io/Qscan/StockPhysicalCheck02.html]](https://eugenepai.github.io/Qscan/StockPhysicalCheck02.html)
