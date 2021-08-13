@@ -112,50 +112,7 @@
             <td class="tdInput" colspan="2"> <span id="sendStatus" style="font-weight:bolder;"></span> </td>            
         </tr>
     </table>
-    <!-- <div class="checkForm">
-        <div>底稿進度： 
-            <select id="stockCheckNo" onChange="inputSwitch('initialSetting')";>
-                <option>請選擇....</option>
-                <option value = "1stCheck">初盤</option>
-                <option value = "2ndCheck" >複盤</option>
-            </select>
-        </div>
-        <div>底稿編號： 
-            <input id="colA_val" type="text" autocomplete="on" inputmode="text" placeholder="底稿編號" class="forInput"/> 
-            <span id="inquiryStatus" style="font-weight:bolder; border-width: 0;background-color: lightgray;"></span>
-        </div>
-        <div>底稿序號： 
-            <input id="colB_val" type="text" autocomplete="on" inputmode="text" placeholder="底稿序號" class="forInput"/> 
-            <button id="getStockBtn" style="background-color:lightgreen;">查詢盤點底稿</button>
-        </div>
-        <hr/>
-        <div> 庫　　別： <span id="colF_val"> </span> <span id="colG_val"> </span> </div>
-        <hr/>
-        <div> 品　　號： <span id="colC_val"> </span> </div>
-        <div> 品　　名： <span id="colD_val"> </span> </div>
-        <div> 規　　格： <span id="colE_val"> </span> </div>
-        <div> 批　　號： <span id="colI_val"> </span> </div>
-        <hr/>
-
-        <div> 帳面數量： <span id="colM_val"> </span><span id="colH_val"> </span></div>
-        <hr/>
-        <div> 初盤數量： <input id="colJ_val" type="text" autocomplete="off" inputmode="decimal"/> </div>
-        <div> 初盤人員： <input id="colO_val" type="text" autocomplete="on"  inputmode="text"/> </div>
-        <div> 初盤時間： <input id="colP_val" type="text" autocomplete="off" inputmode="none"/> </div>
-        <hr/>
-        <div> 複盤數量： <input id="colK_val" type="text" autocomplete="off" inputmode="decimal"/> </div>
-        <div> 複盤人員： <input id="colQ_val" type="text" autocomplete="on"  inputmode="text"/> </div>
-        <div> 複盤時間： <input id="colR_val" type="text" autocomplete="off" inputmode="none"/> </div>
-        <hr/>
-        <div> 盤點數量： <input id="colL_val" type="text" autocomplete="off" inputmode="decimal"/> </div>
-        <hr/>
-    <div> 備　　註： <input id="colN_val" type="text" autocomplete="off" inputmode="text"/> </div>
-
-        
-        <span>　　　　　</span>
-        <button id="uploadBtn" style="background-color:yellow;">上傳資料</button>
-        <span id="sendStatus" style="font-weight:bolder;"></span>      
-    </div> -->
+ 
     <!-- ******************************************************************************************** -->
     <script>
         // google sheet URLs
@@ -176,6 +133,7 @@
         inquiryStatusObj = document.getElementById("inquiryStatus");
         sendStatusObj = document.getElementById("sendStatus");
         stockCheckNoObj = document.getElementById("stockCheckNo");
+        CheckerIDObj = document.getElementById("CheckerID");
         //---------------------------------------------------------------------------------------------------------
         function inputFieldAttr(fieldColor, fieldValue) {
             var x = document.getElementsByTagName("input");
@@ -293,7 +251,7 @@
             dataUpload = {};
             
            if (chkSequence == "1stCheck") {                
-                checkerName = colO.value;
+                // checkerName = colO.value;
                 colP.value = uploadTime;
                 dataUpload = {   
                     "method": "write", "GSSWorkbookUrl": GSSWorkbookUrl, "worksheetName": colA.value,
@@ -301,7 +259,7 @@
                     "chkSequence":chkSequence };
             }
             else if (chkSequence == "2ndCheck") {
-                checkerName = colQ.value;
+                // checkerName = colQ.value;
                 colR.value = uploadTime;
                 dataUpload = {   
                     "method": "write", "GSSWorkbookUrl": GSSWorkbookUrl, "worksheetName": colA.value,
@@ -342,7 +300,7 @@
         // ----------------------------------------------------------------------------------------------
         document.querySelector('#getStockBtn').addEventListener('click', readFromGS);   // 讀取資料
         document.querySelector('#uploadBtn').addEventListener('click', sendData2GS);   // 上傳資料
-        // document.querySelector('#newItemBtn').addEventListener('click', clearForm); //盤點下一筆
+
 
     </script>
 </body>
