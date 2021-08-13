@@ -18,10 +18,101 @@
     .inlineBlock {display:inline-block; vertical-align:top; margin:5vw;}
     .scannerWindow { width:50vw; height:50vw; border:1px solid red; display:inline-block; }
     .forInput {background-color: lightgreen;}
+    .tableMain {width:100vw;}
+    .tdItem {width:18vw;}
+    .tdInput {width:30vw;}
 </style>
 </head>
 <body>
-    <div class="checkForm">
+    <table border="1" >
+        <tr>
+            <td class="tdItem">盤點別:</td>
+            <td class="tdInput">
+                <select id="stockCheckNo" onChange="inputSwitch('initialSetting')";>
+                    <option>請選擇....</option>
+                    <option value = "1stCheck">初盤</option>
+                    <option value = "2ndCheck" >複盤</option>
+                </select>
+            </td>
+            <td>盤點人：</td>
+            <td>
+                <input id="CheckerID" type="text" autocomplete="on" inputmode="text" placeholder="盤點人" class="forInput"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="tdItem">底稿編號：</td>
+            <td class="tdInput">
+                <input id="colA_val" type="text" autocomplete="on" inputmode="text" placeholder="底稿編號" class="forInput"/>
+            </td>
+            <td class="tdInput" colspan="2">
+                <span id="inquiryStatus" style="font-weight:bolder; border-width: 0;background-color: lightgray;"></span>
+            </td>
+            
+        </tr>
+        <tr>
+            <td>底稿序號：</td>
+            <td>
+                <input id="colB_val" type="text" autocomplete="on" inputmode="text" placeholder="底稿序號" class="forInput"/>
+            </td>
+            <td class="tdInput" colspan="2">
+                <button id="getStockBtn" style="background-color:lightgreen;">查詢盤點底稿</button>
+            </td>
+        </tr>
+        <tr>
+            <td class="tdItem">庫　　別：</td>
+            <td class="tdInput" colspan="3">
+                <span id="colF_val"> </span> <span id="colG_val"> </span>
+            </td>            
+        </tr>
+        <tr>
+            <td class="tdItem">品　　號：</td>
+            <td class="tdInput" colspan="3"><span id="colC_val"> </span> </td>            
+        </tr>
+        <tr>
+            <td class="tdItem">品　　名：</td>
+            <td class="tdInput" colspan="3"> <span id="colD_val"> </span> </td>            
+        </tr>
+        <tr>
+            <td class="tdItem">規　　格：</td>
+            <td class="tdInput"> <span id="colE_val"> </span> </td>
+            <td class="tdItem">批　　號：</td>
+            <td class="tdInput"> <span id="colI_val"> </span> </td>     
+        </tr>
+        <tr>
+            <td class="tdItem">帳面數量：</td>
+            <td class="tdInput" colspan="3"> <span id="colM_val"> </span><span id="colH_val"> </td>            
+        </tr>
+        <tr>
+            <td class="tdItem">初盤數量：</td>
+            <td class="tdInput"> <input id="colJ_val" type="text" autocomplete="off" inputmode="decimal"/> </td>
+            <td class="tdItem">初盤人員：</td>
+            <td class="tdInput"> <input id="colO_val" type="text" autocomplete="on"  inputmode="text"/> </td>     
+        </tr>
+        <tr>
+            <td class="tdItem">初盤時間：</td>
+            <td class="tdInput" colspan="3"> <input id="colP_val" type="text" autocomplete="off" inputmode="none"/> </td>            
+        </tr>
+
+        <tr>
+            <td class="tdItem">複盤數量：</td>
+            <td class="tdInput"> <input id="colK_val" type="text" autocomplete="off" inputmode="decimal"/> </td>
+            <td class="tdItem">複盤人員：</td>
+            <td class="tdInput"> <input id="colQ_val" type="text" autocomplete="on"  inputmode="text"/> </td>     
+        </tr>
+        <tr>
+            <td class="tdItem">複盤時間：</td>
+            <td class="tdInput" colspan="3"> <input id="colR_val" type="text" autocomplete="off" inputmode="none"/> </td>            
+        </tr>
+        <tr>
+            <td class="tdItem">備　　註：</td>
+            <td class="tdInput" colspan="3"> <input id="colN_val" type="text" autocomplete="off" inputmode="text"/> </td>            
+        </tr>
+        <tr>
+            <td class="tdItem" colspan="2"><button id="uploadBtn" style="background-color:yellow;">上傳資料</button> </td>
+            <td class="tdInput" colspan="2"> <span id="sendStatus" style="font-weight:bolder;"></span> </td>            
+        </tr>
+    </table>
+    <!-- <div class="checkForm">
         <div>底稿進度： 
             <select id="stockCheckNo" onChange="inputSwitch('initialSetting')";>
                 <option>請選擇....</option>
@@ -45,7 +136,7 @@
         <div> 規　　格： <span id="colE_val"> </span> </div>
         <div> 批　　號： <span id="colI_val"> </span> </div>
         <hr/>
-        <!-- <div>  </div> -->
+
         <div> 帳面數量： <span id="colM_val"> </span><span id="colH_val"> </span></div>
         <hr/>
         <div> 初盤數量： <input id="colJ_val" type="text" autocomplete="off" inputmode="decimal"/> </div>
@@ -56,15 +147,15 @@
         <div> 複盤人員： <input id="colQ_val" type="text" autocomplete="on"  inputmode="text"/> </div>
         <div> 複盤時間： <input id="colR_val" type="text" autocomplete="off" inputmode="none"/> </div>
         <hr/>
-        <!-- <div> 盤點數量： <input id="colL_val" type="text" autocomplete="off" inputmode="decimal"/> </div>
-        <hr/> -->
-        <div> 備　　註： <input id="colN_val" type="text" autocomplete="off" inputmode="text"/> </div>
+        <div> 盤點數量： <input id="colL_val" type="text" autocomplete="off" inputmode="decimal"/> </div>
+        <hr/>
+    <div> 備　　註： <input id="colN_val" type="text" autocomplete="off" inputmode="text"/> </div>
 
         
         <span>　　　　　</span>
         <button id="uploadBtn" style="background-color:yellow;">上傳資料</button>
         <span id="sendStatus" style="font-weight:bolder;"></span>      
-    </div>
+    </div> -->
     <!-- ******************************************************************************************** -->
     <script>
         // google sheet URLs
