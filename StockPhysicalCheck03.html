@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>PCI Inventory Physical Check ver.02</title>
+    <title>PCI Inventory Physical Check ver.03</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
@@ -23,9 +23,16 @@
 </head>
 <body>
     <div class="checkForm">
+        <div>底稿進度： 
+            <select id="stockCheckNo" onChange="inputSwitch('initialSetting')";>
+                <option>請選擇....</option>
+                <option value = "1stCheck">初盤</option>
+                <option value = "2ndCheck" >複盤</option>
+            </select>
+        </div>
         <div>底稿編號： 
             <input id="colA_val" type="text" autocomplete="on" inputmode="text" placeholder="底稿編號" class="forInput"/> 
-            <span id="inquiryStatus" style="font-weight:bolder;"></span>
+            <span id="inquiryStatus" style="font-weight:bolder; border-width: 0;background-color: lightgray;"></span>
         </div>
         <div>底稿序號： 
             <input id="colB_val" type="text" autocomplete="on" inputmode="text" placeholder="底稿序號" class="forInput"/> 
@@ -42,10 +49,6 @@
         <!-- <div>  </div> -->
         <div> 帳面數量： <span id="colM_val"> </span><span id="colH_val"> </span></div>
         <hr/>
-        <input id="radio1" type="radio" name="chkNo" onchange="checkSeq('1stCheck');" value="1stCheck" >初盤</input>
-        <span>　　</span>
-        <input id="radio2" type="radio" name="chkNo" onchange="checkSeq('2ndCheck');" value="2ndCheck">複盤</input>
-        <hr/>
         <div> 初盤數量： <input id="colJ_val" type="text" autocomplete="off" inputmode="decimal"/> </div>
         <div> 初盤人員： <input id="colO_val" type="text" autocomplete="on"  inputmode="text"/> </div>
         <div> 初盤時間： <input id="colP_val" type="text" autocomplete="off" inputmode="none"/> </div>
@@ -61,10 +64,7 @@
         
         <span>　　　　　</span>
         <button id="uploadBtn" style="background-color:yellow;">上傳資料</button>
-        <span id="sendStatus" style="font-weight:bolder;"></span>
-        <span>　　　　　</span>
-        <!-- <button id="newItemBtn">盤點下一筆</button> -->
-      
+        <span id="sendStatus" style="font-weight:bolder;"></span>      
     </div>
     <!-- ******************************************************************************************** -->
     <script>
@@ -81,11 +81,12 @@
         colM = document.getElementById("colM_val"); colN = document.getElementById("colN_val");
         colO = document.getElementById("colO_val"); colP = document.getElementById("colP_val");
         colQ = document.getElementById("colQ_val"); colR = document.getElementById("colR_val");
-        colJ.disabled = true;  colO.disabled = true;  colP.disabled = true;
-        colK.disabled = true;   colQ.disabled = true;   colR.disabled = true;
+        // 項目變數
         var chkSequence ="", serialNo, checkerName="";
         inquiryStatusObj = document.getElementById("inquiryStatus");
         sendStatusObj = document.getElementById("sendStatus");
+        stockCheckNoObj = document.getElementById("stockCheckNo");
+        //---------------------------------------------------------------------------------------------------------
         function inputFieldAttr(fieldColor, fieldValue) {
             var x = document.getElementsByTagName("input");
             if (fieldColor != "unchange") {
@@ -94,21 +95,24 @@
             if (fieldValue != "unchange") {
                 for (var i = 0; i < x.length; i++) { x[i].value = fieldValue; }
             }
-            // colA.style.backgroundColor = "yellow";
-            // colB.style.backgroundColor = "yellow";confirm('已有盤點資料，確定要修改?')
         }
-        function overwrite(){            
-            if (confirm('已有盤點資料，確定要修改?')) {
-                return "yes";
-            } 
-            else {
-                document.getElementById("radio1").checked = false;
-                document.getElementById("radio2").checked = false;
-                return "no";
+        function inputSwitch(chkSequence) {
+            if (chkSequence =="initialSetting") {chkSequence = stockCheckNoObj.value;}
+            colJ.disabled = true;   colO.disabled = true;   colP.disabled = true;
+            colK.disabled = true;   colQ.disabled = true;   colR.disabled = true;
+            if (chkSequence == "1stCheck") { 
+                colJ.disabled = false;  colO.disabled = false;  colP.disabled = false; 
             }
+            else if (chkSequence == "2ndCheck") { 
+                colK.disabled = false;  colQ.disabled = false;  colR.disabled = false; 
+            }    
         }
-        function checkSeq(chk) {           
-            chkSequence = chk;
+        function overwrite(){
+            if (confirm('已有盤點資料，確定要修改?')) {return "yes";} 
+            else {return "no";}
+        }
+        function checkSeq() {
+            chkSequence = stockCheckNoObj.value;
             var editMode = "yes";
             if (chkSequence == "1stCheck" && (colJ.value !="" || colO.value !="" || colP.value !="")) {
                 editMode = overwrite();
@@ -116,7 +120,8 @@
             else if (chkSequence == "2ndCheck" && (colK.value !="" || colQ.value !="" || colR.value !="")) {
                 editMode = overwrite();
             } 
-            if (editMode == "yes") { inputSwitch(chkSequence); }           
+            if (editMode == "yes") { inputSwitch(chkSequence); }
+            else {inputSwitch("allDisable");}
         }
         // read data from google sheet by 底稿編號/底稿序號
         // -----------------------------------------------------------------------------
@@ -130,19 +135,7 @@
             colC.innerHTML = "";colD.innerHTML = "";colE.innerHTML = "";colI.innerHTML = "";
             colH.innerHTML = "";colM.innerHTML = ""; colF.innerHTML = "";colG.innerHTML = "";
         }        
-        function inputSwitch(checkNo) {
-            colJ.disabled = true;   colO.disabled = true;   colP.disabled = true;
-            colK.disabled = true;   colQ.disabled = true;   colR.disabled = true;
-            document.getElementById("radio1").checked = false;
-            document.getElementById("radio2").checked = false;
-            if (checkNo == "1stCheck") { 
-                colJ.disabled = false;  colO.disabled = false;  colP.disabled = false; 
-                document.getElementById("radio1").checked = true;}
-            else if (checkNo == "2ndCheck") { 
-                colK.disabled = false;  colQ.disabled = false;  colR.disabled = false; 
-                document.getElementById("radio2").checked = true;
-            }    
-        }
+
         function readFromGS() {
             document.getElementById("getStockBtn").style.backgroundColor = "lightgray";
             if (colA.value =="") {
@@ -155,43 +148,29 @@
                 return; 
                 document.getElementById("getStockBtn").style.backgrouldColor = "lightgreen"; 
             };
-            inputSwitch("allDisable");
-            
+            inputSwitch("allDisable");            
             serialNo = colB.value;
             clearForm();
             
             $.ajax({
-                type: "post",
-                url: GSAppsScript,
-                data: {   
-                    "GSSWorkbookUrl": GSSWorkbookUrl,
-                    "method": "read",
-                    "worksheetName": colA.value,
-                    "query": colB.value
-                }, 
+                type: "post",url: GSAppsScript,
+                data: { "GSSWorkbookUrl":GSSWorkbookUrl, "method":"read", "worksheetName":colA.value, "query":colB.value }, 
                 success: function(returnData) { 
-                    if(returnData != "") {
-                        inquiryStatusObj.style.color = "blue";
-                        inquiryStatusObj.innerHTML = "查詢成功";
-                        inquiryTimer = setTimeout(function(){ inquiryStatusObj.innerHTML = ""; }, 5000);
-                        inputFieldAttr("yellow", "unchange");
+                    if(returnData != "") {                        
                         //return data 處理
                         const returnDataArray = returnData.split('｜');
-                        colC.innerHTML = returnDataArray[2]; 
-                        colD.innerHTML = returnDataArray[3];
+                        colC.innerHTML = returnDataArray[2]; colD.innerHTML = returnDataArray[3];
                         colE.innerHTML = returnDataArray[4];
                         colF.innerHTML = "( " + returnDataArray[5] + " )";
                         colG.innerHTML = returnDataArray[6];
                         colH.innerHTML = "　( 單位：" + returnDataArray[7] + " )";
                         colI.innerHTML = returnDataArray[8];
-                        colJ.value = returnDataArray[9];   
-                        colK.value = returnDataArray[10];
+
+                        colJ.value = returnDataArray[9]; colK.value = returnDataArray[10];
                         // colL.value = returnDataArray[11];
                         colM.innerHTML = returnDataArray[12];
-                        colN.value = returnDataArray[13];
-                        colO.value = returnDataArray[14]; 
-                        colP.value = returnDataArray[15]
-                        colQ.value = returnDataArray[16];
+                        colN.value = returnDataArray[13]; colO.value = returnDataArray[14]; 
+                        colP.value = returnDataArray[15]; colQ.value = returnDataArray[16];
                         colR.value = returnDataArray[17];
                         document.getElementById("getStockBtn").style.backgroundColor = "lightgreen";
                         if (colP.value !="") {
@@ -202,15 +181,20 @@
                             colR.value = new Date(returnDataArray[17]).toLocaleDateString() + "_" + 
                                          new Date(returnDataArray[17]).toLocaleTimeString('en-GB');
                         }
+                        inquiryStatusObj.style.color = "blue"; inquiryStatusObj.innerHTML = "查詢成功";                        
+                        inputFieldAttr("yellow", "unchange");
+                        inquiryTimer = setTimeout(function(){ inquiryStatusObj.innerHTML = ""; }, 5000);
+                        checkSeqTimer = setTimeout(function(){ checkSeq();}, 0);
+                        // inquiryStatusObj.addEventListener("change", checkSeq);
                     }
-                },
+                },                
                  error: function(){
                         inquiryStatusObj.style.color = "red";
                         inquiryStatusObj.innerHTML = "查詢失敗";
                         document.getElementById("getStockBtn").style.backgroundColor = "lightgreen"; 
                         inquiryTimer = setTimeout(function(){ inquiryStatusObj.innerHTML=""; }, 5000);
-                },
-            });            
+                }
+            });
         };
         // ------send 盤點資料 to google sheet ----------------------------------------------------------------         
         function sendData2GS() {
