@@ -15,10 +15,12 @@
                border: 1px solid black; font-size: 15px;}
     .checkForm div{margin-bottom: 1vw; width: 85vw;}
     .checkForm input{width: auto;} */
-    .forInput {background-color: lightgreen; width:20vw; font-size:2vw;}
-    .tableMain {width:96vw;font-size:2vw;}
-    .tdItem {width:20vw;font-size:2vw;}
-    .tdInput {width:20vw;font-size:2vw;}
+    .forInput {background-color: lightgreen; width:95%; font-size:2vw;}
+    .forInputRslt {width:90%; font-size:2vw;}
+
+    .tableMain {width:100%;font-size:2vw;}
+    .tdItem {width:25%;font-size:2vw;}
+    .tdInput {width:25%;font-size:2vw;}
 </style>
 </head>
 <body>
@@ -26,7 +28,7 @@
         <tr>
             <td class="tdItem">盤點別:</td>
             <td class="tdInput">
-                <select class="tdInput" id="stockCheckNo" onChange="inputSwitch('initialSetting')";>
+                <select class="forInput" id="stockCheckNo" onChange="inputSwitch('initialSetting')";>
                     <option>請選擇....</option>
                     <option value = "1stCheck">初盤</option>
                     <option value = "2ndCheck" >複盤</option>
@@ -76,45 +78,48 @@
         </tr>
         <tr>
             <td class="tdItem">帳面數量：</td>
-            <td class="tdInput" colspan="3"> <span id="colM_val"> </span><span id="colH_val"> </td>\
+            <td class="tdInput" colspan="3"> <span id="colM_val"> </span><span id="colH_val"> </td>
+        </tr>
+        <tr>
+            <td class="tdInput" colspan="4"> 【盤點結果】</td>
         </tr>
         <tr>
             <td class="tdItem">初盤數量：</td>
             <td class="tdInput">
-                <input id="colJ_val" type="text" autocomplete="off" inputmode="decimal" class="forInput"/>
+                <input id="colJ_val" type="text" autocomplete="off" inputmode="decimal" class="forInputRslt"/>
             </td>
             <td class="tdItem">初盤人員：</td>
             <td class="tdInput">
-                <input id="colO_val" type="text" autocomplete="on"  inputmode="text" class="forInput"/>
+                <input id="colO_val" type="text" autocomplete="on"  inputmode="text" class="forInputRslt"/>
             </td>
         </tr>
         <tr>
             <td class="tdItem">初盤時間：</td>
             <td class="tdInput" colspan="3">
-                <input id="colP_val" type="text" autocomplete="off" inputmode="none" class="forInput"/>
+                <input id="colP_val" type="text" autocomplete="off" inputmode="none" class="forInputRslt"/>
             </td>            
         </tr>
 
         <tr>
             <td class="tdItem">複盤數量：</td>
             <td class="tdInput">
-                <input id="colK_val" type="text" autocomplete="off" inputmode="decimal" class="forInput"/>
+                <input id="colK_val" type="text" autocomplete="off" inputmode="decimal" class="forInputRslt"/>
             </td>
             <td class="tdItem">複盤人員：</td>
             <td class="tdInput">
-                <input id="colQ_val" type="text" autocomplete="on"  inputmode="text" class="forInput"/>
+                <input id="colQ_val" type="text" autocomplete="on"  inputmode="text" class="forInputRslt"/>
             </td>     
         </tr>
         <tr>
             <td class="tdItem">複盤時間：</td>
             <td class="tdInput" colspan="3">
-                <input id="colR_val" type="text" autocomplete="off" inputmode="none" class="forInput"/>
+                <input id="colR_val" type="text" autocomplete="off" inputmode="none" class="forInputRslt"/>
             </td>            
         </tr>
         <tr>
             <td class="tdItem">備　　註：</td>
             <td class="tdInput" colspan="3">
-                <input id="colN_val" type="text" autocomplete="off" inputmode="text" class="forInput"/>
+                <input id="colN_val" type="text" autocomplete="off" inputmode="text" class="forInputRslt"/>
             </td>            
         </tr>
         <tr>
