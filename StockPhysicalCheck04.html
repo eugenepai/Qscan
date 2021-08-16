@@ -36,7 +36,7 @@
             </td>
             <td>盤點人：</td>
             <td>
-                <input id="CheckerID" type="text" autocomplete="on" inputmode="text" placeholder="盤點人" class="forInput"/>
+                <input id="CheckerId" type="text" autocomplete="on" inputmode="text" placeholder="盤點人" class="forInput"/>
             </td>
         </tr>
         <tr>
@@ -60,27 +60,27 @@
         </tr>
         
         <tr>
-            <td class="tdItem">品　　號：</td>
+            <td class="tdItem">品號：</td>
             <td class="tdInput" colspan="3"><span id="colC_val"> </span> </td>            
         </tr>
         <tr>
-            <td class="tdItem">品　　名：</td>
+            <td class="tdItem">品名：</td>
             <td class="tdInput" colspan="3"> <span id="colD_val"> </span> </td>            
         </tr>
         <tr>
-            <td class="tdItem">規　　格：</td>
+            <td class="tdItem">規格：</td>
             <td class="tdInput"> <span id="colE_val"> </span> </td>
-            <td class="tdItem">批　　號：</td>
+            <td class="tdItem">批號：</td>
             <td class="tdInput"> <span id="colI_val"> </span> </td>     
         </tr>
         <tr>
             <td class="tdItem">帳面數量：</td>
             <td class="tdInput"> <span id="colM_val"> </span><span id="colH_val"> </td>
-            <td class="tdItem">庫　　別：</td>
+            <td class="tdItem">庫別：</td>
             <td class="tdInput"><span id="colF_val"> </span> <span id="colG_val"> </span></td>            
         </tr>
         <tr>
-            <td class="tdInput" colspan="4"> 【盤點結果】</td>
+            <td class="tdInput" colspan="4" style="text-align:center;"> 【盤點結果】</td>
         </tr>
         <tr>
             <td class="tdItem">初盤數量：</td>
@@ -133,6 +133,7 @@
         GSAppsScript="https://script.google.com/macros/s/AKfycbzNCKNDTZ-BpVLazUVuJnQgfbQzeY-69b_h3CIOc-x2KX_OeyzM3uUd7ZngGA4PTYmb/exec"
         GSSWorkbookUrl="https://docs.google.com/spreadsheets/d/1Fs4uEbpn21Ss9qOs0pCAmgpySs3WtpNzONuptNytmME/edit#gid=1048350866"
         // 盤點清冊項目
+        
         colA = document.getElementById("colA_val"); colB = document.getElementById("colB_val");
         colC = document.getElementById("colC_val"); colD = document.getElementById("colD_val");
         colE = document.getElementById("colE_val"); colF = document.getElementById("colF_val");
@@ -147,7 +148,7 @@
         inquiryStatusObj = document.getElementById("inquiryStatus");
         sendStatusObj = document.getElementById("sendStatus");
         stockCheckNoObj = document.getElementById("stockCheckNo");
-        CheckerIDObj = document.getElementById("CheckerID");
+        CheckerIdObj = document.getElementById("CheckerId");
         //---------------------------------------------------------------------------------------------------------
         function inputFieldAttr(fieldColor, fieldValue) {
             var x = document.getElementsByTagName("input");
@@ -189,11 +190,13 @@
         // -----------------------------------------------------------------------------
         function clearForm(){
             //清空所有input欄位，但保留盤點人員姓名
-            var colAV = document.getElementById("colA_val").value;
-            var colBV = document.getElementById("colB_val").value ;
+            var colAV = colA.value;     var colBV = colB.value ;
+            var checkerIdV = CheckerIdObj.value ;
             inputFieldAttr("white", "");                
-            document.getElementById("colA_val").value = colAV;
-            document.getElementById("colB_val").value = colBV;
+            colA.value = colAV;
+            colB.value = colBV;
+            CheckerIdObj.value = checkerIdV;
+
             colC.innerHTML = "";colD.innerHTML = "";colE.innerHTML = "";colI.innerHTML = "";
             colH.innerHTML = "";colM.innerHTML = ""; colF.innerHTML = "";colG.innerHTML = "";
         }        
