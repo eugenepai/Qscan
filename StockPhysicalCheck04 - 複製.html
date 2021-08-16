@@ -26,8 +26,8 @@
         <tr>
             <td class="tdItem">盤點別</td>
             <td>
-                <select class="inputQuery" id="stockCheckNo" onChange="checkSeq()";>
-                    <option value = "initialSetting">請選擇....</option>
+                <select class="inputQuery" id="stockCheckNo" onChange="inputSwitch('initialSetting')";>
+                    <option>請選擇....</option>
                     <option value = "1stCheck">初盤</option>
                     <option value = "2ndCheck" >複盤</option>
                 </select>
@@ -145,19 +145,17 @@
         colM = document.getElementById("colM_val"); colN = document.getElementById("colN_val");
         colO = document.getElementById("colO_val"); colP = document.getElementById("colP_val");
         colQ = document.getElementById("colQ_val"); colR = document.getElementById("colR_val");
-        // DOM變數
+        // 項目變數
+        var chkSequence ="", serialNo, checkerName="";
         inquiryStatusObj = document.getElementById("inquiryStatus");
         sendStatusObj = document.getElementById("sendStatus");
         stockCheckNoObj = document.getElementById("stockCheckNo");
         CheckerIdObj = document.getElementById("CheckerId");
         getStockBtnObj = document.getElementById("getStockBtn");
         uploadBtnObj = document.getElementById("uploadBtn");
-        // 控制變數
-        var serialNo;
-        var checkerName=CheckerIdObj.value;
-        var chkSequence = stockCheckNoObj.value;
         //---------------------------------------------------------------------------------------------------------
         function inputFieldAttr(classNodeName, fieldColor, fieldValue) {
+            // var x = document.getElementsByTagName("input");
             var x = document.getElementsByClassName(classNodeName);
             if (fieldColor != "unchange") {
                for (var i = 0; i < x.length; i++) { x[i].style.backgroundColor = fieldColor; }
@@ -166,8 +164,8 @@
                 for (var i = 0; i < x.length; i++) { x[i].value = fieldValue; }
             }
         }
-        function inputSwitch() {
-            chkSequence = stockCheckNoObj.value;
+        function inputSwitch(chkSequence) {
+            if (chkSequence =="initialSetting") {chkSequence = stockCheckNoObj.value;}
             colJ.disabled = true;   colO.disabled = true;   colP.disabled = true;
             colK.disabled = true;   colQ.disabled = true;   colR.disabled = true;
             if (chkSequence == "1stCheck") { 
@@ -175,7 +173,7 @@
             }
             else if (chkSequence == "2ndCheck") { 
                 colK.disabled = false;  colQ.disabled = false;  colR.disabled = false; 
-            }
+            }    
         }
         function overwrite(){
             if (confirm('已有盤點資料，確定要修改?')) {return "yes";} 
@@ -189,8 +187,7 @@
             } 
             else if (chkSequence == "2ndCheck" && (colK.value !="" || colQ.value !="" || colR.value !="")) {
                 editMode = overwrite();
-            }
-
+            } 
             if (editMode == "yes") { inputSwitch(chkSequence); }
             else {inputSwitch("allDisable");}
         }
@@ -221,12 +218,7 @@
                 return; 
                 getStockBtnObj.style.backgrouldColor = "lightgreen"; 
             };
-            if (CheckerIdObj.value =="") {
-                alert("盤點人 不允許空白"); 
-                return; 
-                CheckerIdObj.style.backgrouldColor = "lightgreen"; 
-            };
-            inputSwitch("allDisable");
+            inputSwitch("allDisable");            
             serialNo = colB.value;
             clearForm();
             
@@ -250,7 +242,6 @@
                         colN.value = returnDataArray[13]; colO.value = returnDataArray[14]; 
                         colP.value = returnDataArray[15]; colQ.value = returnDataArray[16];
                         colR.value = returnDataArray[17];
-
                         getStockBtnObj.style.backgroundColor = "lightgreen";
                         if (colP.value !="") {
                             colP.value = new Date(returnDataArray[15]).toLocaleDateString() + "_" + 
@@ -260,11 +251,11 @@
                             colR.value = new Date(returnDataArray[17]).toLocaleDateString() + "_" + 
                                          new Date(returnDataArray[17]).toLocaleTimeString('en-GB');
                         }
-
                         inquiryStatusObj.style.color = "blue"; inquiryStatusObj.innerHTML = "查詢成功";                        
                         inputFieldAttr("yellow", "unchange");
                         inquiryTimer = setTimeout(function(){ inquiryStatusObj.innerHTML = ""; }, 5000);
                         checkSeqTimer = setTimeout(function(){ checkSeq();}, 1000);
+                        // inquiryStatusObj.addEventListener("change", checkSeq);
                     }
                 },                
                  error: function(){
