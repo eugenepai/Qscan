@@ -11,20 +11,20 @@
 <style type="text/css">
     button{ background-color:white; border: 1px solid black; }
 
-    .forInput { background-color: lightgreen; width:90%; font-size:2vw; }
-    .forInputRslt { width:90%; font-size:3vw; }
-
-    .tableMain {width:100%; font-size:3vw; }
-    .tdItem { width:25%; font-size:3vw; }
-    .tdInput { width:25%; font-size:3vw; }
+    .inputQuery { background-color: lightgreen; width:90%; font-size:2vw; border:none; }
+    .inputResult { width:90%; font-size:3vw; border:none; }
+    td {border: 1px solid black;}
+    .tableMain {width:100%; font-size:3vw; text-indent:0.2em; border-collapse: collapse;  }
+    .tdItem { width:15%; font-size:3vw; }
+    .tdValue { width:35%; font-size:3vw; }
 </style>
 </head>
 <body>
-    <table class="tableMain" border="1" >
+    <table class="tableMain">
         <tr>
             <td class="tdItem">盤點別</td>
-            <td class="tdInput">
-                <select class="forInput" id="stockCheckNo" onChange="inputSwitch('initialSetting')";>
+            <td>
+                <select class="inputQuery" id="stockCheckNo" onChange="inputSwitch('initialSetting')";>
                     <option>請選擇....</option>
                     <option value = "1stCheck">初盤</option>
                     <option value = "2ndCheck" >複盤</option>
@@ -32,96 +32,96 @@
             </td>
             <td>盤點人</td>
             <td>
-                <input id="CheckerId" type="text" autocomplete="on" inputmode="text" placeholder="盤點人" class="forInput"/>
+                <input id="CheckerId" type="text" autocomplete="on" inputmode="text" placeholder="盤點人" class="inputQuery"/>
             </td>
         </tr>
         <tr>
             <td class="tdItem">底稿編號</td>
-            <td class="tdInput">
-                <input id="colA_val" type="text" autocomplete="on" inputmode="text" placeholder="底稿編號" class="forInput"/>
+            <td>
+                <input id="colA_val" type="text" autocomplete="on" inputmode="text" placeholder="底稿編號" class="inputQuery"/>
             </td>
-            <td class="tdInput" colspan="2">
-                <span id="inquiryStatus" style="font-weight:bolder; border-width: 0;background-color: lightgray;"></span>
-            </td>
-            
+            <td class="tdValue" colspan="2">
+                <span id="inquiryStatus" style="font-weight:bolder; background-color: lightgray;"></span>
+            </td>            
         </tr>
         <tr>
             <td>底稿序號</td>
             <td>
-                <input id="colB_val" type="text" autocomplete="on" inputmode="text" placeholder="底稿序號" class="forInput"/>
+                <input id="colB_val" type="text" autocomplete="on" inputmode="text" placeholder="底稿序號" class="inputQuery"/>
             </td>
-            <td class="tdInput" colspan="2">
+            <td colspan="2">
                 <button id="getStockBtn" style="background-color:lightgreen;">查詢盤點底稿</button>
             </td>
         </tr>
+        <!-- ---------------------------------------------------------------------------------- -->
         <tr>
-            <td class="tdInput" colspan="4" style="text-align:center; background-color:lightgray;"> 【盤點項目】</td>
+            <td colspan="4" style="text-align:center; background-color:lightgray;"> 【盤點項目】</td>
         </tr>
         <tr>
             <td class="tdItem">品號</td>
-            <td class="tdInput" colspan="3"><span id="colC_val"> </span> </td>            
+            <td class="tdValue" colspan="3"><span id="colC_val"> </span> </td>            
         </tr>
         <tr>
             <td class="tdItem">品名</td>
-            <td class="tdInput" colspan="3"> <span id="colD_val"> </span> </td>            
+            <td class="tdValue" colspan="3"> <span id="colD_val"> </span> </td>            
         </tr>
         <tr>
             <td class="tdItem">規格</td>
-            <td class="tdInput"> <span id="colE_val"> </span> </td>
+            <td class="tdValue"> <span id="colE_val"> </span> </td>
             <td class="tdItem">批號</td>
-            <td class="tdInput"> <span id="colI_val"> </span> </td>     
+            <td class="tdValue"> <span id="colI_val"> </span> </td>     
         </tr>
         <tr>
             <td class="tdItem">帳面數量</td>
-            <td class="tdInput"> <span id="colM_val"> </span><span id="colH_val"> </td>
+            <td class="tdValue"> <span id="colM_val"> </span><span id="colH_val"> </td>
             <td class="tdItem">庫別</td>
-            <td class="tdInput"><span id="colF_val"> </span> <span id="colG_val"> </span></td>            
+            <td class="tdValue"><span id="colF_val"> </span> <span id="colG_val"> </span></td>            
         </tr>
+        <!-- ---------------------------------------------------------------------------------- -->
         <tr>
-            <td class="tdInput" colspan="4" style="text-align:center; background-color:lightgray;"> 【盤點結果】</td>
+            <td colspan="4" style="text-align:center; background-color:lightgray;"> 【盤點結果】</td>
         </tr>
         <tr>
             <td class="tdItem">初盤數量</td>
-            <td class="tdInput">
-                <input id="colJ_val" type="text" autocomplete="off" inputmode="decimal" class="forInputRslt"/>
+            <td>
+                <input id="colJ_val" type="text" autocomplete="off" inputmode="decimal" class="inputResult"/>
             </td>
-            <td class="tdItem">初盤人員</td>
-            <td class="tdInput">
-                <input id="colO_val" type="text" autocomplete="on"  inputmode="text" class="forInputRslt"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="tdItem">初盤時間</td>
-            <td class="tdInput" colspan="3">
-                <input id="colP_val" type="text" autocomplete="off" inputmode="none" class="forInputRslt"/>
+            <td class="tdItem">複盤數量</td>
+            <td>
+                <input id="colK_val" type="text" autocomplete="off" inputmode="decimal" class="inputResult"/>
             </td>            
         </tr>
-
         <tr>
-            <td class="tdItem">複盤數量</td>
-            <td class="tdInput">
-                <input id="colK_val" type="text" autocomplete="off" inputmode="decimal" class="forInputRslt"/>
+            <td class="tdItem">初盤人員</td>
+            <td>
+                <input id="colO_val" type="text" autocomplete="on"  inputmode="text" class="inputResult"/>
             </td>
             <td class="tdItem">複盤人員</td>
-            <td class="tdInput">
-                <input id="colQ_val" type="text" autocomplete="on"  inputmode="text" class="forInputRslt"/>
+            <td>
+                <input id="colQ_val" type="text" autocomplete="on"  inputmode="text" class="inputResult"/>
             </td>     
         </tr>
         <tr>
+            <td class="tdItem">初盤時間</td>
+            <td>
+                <input id="colP_val" type="text" autocomplete="off" inputmode="none" class="inputResult"/>
+            </td>
             <td class="tdItem">複盤時間</td>
-            <td class="tdInput" colspan="3">
-                <input id="colR_val" type="text" autocomplete="off" inputmode="none" class="forInputRslt"/>
-            </td>            
+            <td>
+                <input id="colR_val" type="text" autocomplete="off" inputmode="none" class="inputResult"/>
+            </td>     
         </tr>
+
+        
         <tr>
             <td class="tdItem">備註</td>
-            <td class="tdInput" colspan="3">
-                <input id="colN_val" type="text" autocomplete="off" inputmode="text" class="forInputRslt"/>
+            <td colspan="3">
+                <input id="colN_val" type="text" autocomplete="off" inputmode="text" class="inputResult"/>
             </td>            
         </tr>
         <tr>
             <td class="tdItem" colspan="2"><button id="uploadBtn" style="background-color:yellow;">上傳資料</button> </td>
-            <td class="tdInput" colspan="2"> <span id="sendStatus" style="font-weight:bolder;"></span> </td>            
+            <td class="tdValue" colspan="2"> <span id="sendStatus" style="font-weight:bolder;"></span> </td>            
         </tr>
     </table>
  
@@ -227,7 +227,7 @@
                         colE.innerHTML = returnDataArray[4];
                         colF.innerHTML = "( " + returnDataArray[5] + " )";
                         colG.innerHTML = returnDataArray[6];
-                        colH.innerHTML = "　( 單位：" + returnDataArray[7] + " )";
+                        colH.innerHTML = "　(單位：" + returnDataArray[7] + ")";
                         colI.innerHTML = returnDataArray[8];
 
                         colJ.value = returnDataArray[9]; colK.value = returnDataArray[10];
