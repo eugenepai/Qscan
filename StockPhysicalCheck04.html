@@ -3,24 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.96, maximum-scale=0.96">
-    <title>PCI Inventory Physical Check ver.03</title>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> -->
+    <title>PCI Inventory Physical Check v4</title>
+
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
 
 <style type="text/css">
-    button{background-color:white; border: 1px solid black; }
+    button{ background-color:white; border: 1px solid black; }
 
-    /* .checkForm{text-align:left; width:88vw; background-color:lightgray; padding: 2vw;
-               border: 1px solid black; font-size: 15px;}
-    .checkForm div{margin-bottom: 1vw; width: 85vw;}
-    .checkForm input{width: auto;} */
-    .forInput {background-color: lightgreen; width:90%; font-size:2vw;}
-    .forInputRslt {width:90%; font-size:2vw;}
+    .forInput { background-color: lightgreen; width:90%; font-size:2vw; }
+    .forInputRslt { width:90%; font-size:3vw; }
 
-    .tableMain {width:100%;font-size:2vw;}
-    .tdItem {width:25%;font-size:2vw;}
-    .tdInput {width:25%;font-size:2vw;}
+    .tableMain {width:100%; font-size:3vw; }
+    .tdItem { width:25%; font-size:3vw; }
+    .tdInput { width:25%; font-size:3vw; }
 </style>
 </head>
 <body>
@@ -58,7 +54,9 @@
                 <button id="getStockBtn" style="background-color:lightgreen;">查詢盤點底稿</button>
             </td>
         </tr>
-        
+        <tr>
+            <td class="tdInput" colspan="4" style="text-align:center; background-color:lightgray;"> 【盤點項目】</td>
+        </tr>
         <tr>
             <td class="tdItem">品號：</td>
             <td class="tdInput" colspan="3"><span id="colC_val"> </span> </td>            
@@ -80,7 +78,7 @@
             <td class="tdInput"><span id="colF_val"> </span> <span id="colG_val"> </span></td>            
         </tr>
         <tr>
-            <td class="tdInput" colspan="4" style="text-align:center;"> 【盤點結果】</td>
+            <td class="tdInput" colspan="4" style="text-align:center; background-color:lightgray;"> 【盤點結果】</td>
         </tr>
         <tr>
             <td class="tdItem">初盤數量：</td>
