@@ -13,3 +13,4 @@
 - [[StockPhysicalCheck02]](https://eugenepai.github.io/Qscan/StockPhysicalCheck02.html)
 - [[StockPhysicalCheck03]](https://eugenepai.github.io/Qscan/StockPhysicalCheck03.html)
 - [[StockPhysicalCheck04]](https://eugenepai.github.io/Qscan/StockPhysicalCheck04.html)
+- [[StockPhysicalCheck05]](https://eugenepai.github.io/Qscan/StockPhysicalCheck05.html)
