@@ -9,15 +9,15 @@
 
 
 <style type="text/css">
-    button{ background-color:white; border: 1px solid black; }
+    button{ background-color:white; border: 1px solid black; font-size:5vw; margin:0.8vw; }
     td {border: 1px solid black;}
     
-    .tableMain {width:100%; font-size:3vw; text-indent:0.2em; border-collapse: collapse;  }
-    .tdItem { width:18%; font-size:3vw; text-align:center; }
-    .tdValue { width:32%; font-size:5vw; }
+    .tableMain {width:100%; font-size:3vw; text-indent:0.1em; border-collapse: collapse;  table-layout:fixed; }
+    .tdItem { width:15%; font-size:3vw; text-align:center; }
+    .tdValue { width:32%; font-size:4vw; }
         
-    .inputQuery { background-color: lightgreen; width:90%; font-size:6vw; border:none; }
-    .inputResult { width:88%; font-size:3vw; border:none; }
+    .inputQuery { background-color: lightgreen; width:90%; font-size:4vw; border:none; overflow:auto; }
+    .inputResult { width:88%; font-size:4vw; border:none;overflow:auto; }
 </style>
 </head>
 <body>
@@ -31,28 +31,27 @@
                     <option value = "2ndCheck" >複盤</option>
                 </select>
             </td>
-            <td>盤點人</td>
+            <td class="tdItem">盤點人</td>
             <td>
-                <input size=10 id="CheckerId" type="text" autocomplete="on" inputmode="text" placeholder="盤點人" class="inputQuery"/>
+                <input id="CheckerId" type="text" autocomplete="on" inputmode="text" placeholder="盤點人" class="inputQuery"/>
             </td>
         </tr>
         <tr>
             <td class="tdItem">底稿編號</td>
             <td>
-                <input  size=10 id="colA_val" type="text" autocomplete="on" inputmode="text" placeholder="底稿編號" class="inputQuery"/>
+                <input  id="colA_val" type="text" autocomplete="on" inputmode="text" placeholder="底稿編號" class="inputQuery"/>
             </td>
-            <td class="tdValue" colspan="2">
+            <td class="tdValue" rowspan="2" colspan="2">
+                <button id="getStockBtn" style="background-color:lightgreen;">查詢<br/>底稿</button>
                 <span id="inquiryStatus" style="font-weight:bolder; background-color: lightgray;"></span>
             </td>            
         </tr>
         <tr>
             <td class="tdItem">底稿序號</td>
             <td>
-                <input  size=10  id="colB_val" type="text" autocomplete="on" inputmode="text" placeholder="底稿序號" class="inputQuery"/>
+                <input   id="colB_val" type="text" autocomplete="on" inputmode="text" placeholder="底稿序號" class="inputQuery"/>
             </td>
-            <td colspan="2">
-                <button id="getStockBtn" style="background-color:lightgreen;">查詢盤點底稿</button>
-            </td>
+            
         </tr>
         <!-- ---------------------------------------------------------------------------------- -->
         <tr>
@@ -74,7 +73,7 @@
         </tr>
         <tr>
             <td class="tdItem">帳面數量</td>
-            <td class="tdValue"> <span id="colM_val"> </span><span id="colH_val"> </td>
+            <td class="tdValue" style="text-align:center;"> <span id="colM_val"> </span><span id="colH_val"> </td>
             <td class="tdItem">庫別</td>
             <td class="tdValue"><span id="colF_val"> </span> <span id="colG_val"> </span></td>            
         </tr>
@@ -83,31 +82,35 @@
             <td colspan="4" style="text-align:center; background-color:lightgray;"> 【盤點結果】</td>
         </tr>
         <tr>
-            <td class="tdItem">初盤數量</td>
+            <td class="tdItem" colspan="2">初盤</td>
+            <td class="tdItem" colspan="2">複盤</td>          
+        </tr>
+        <tr>
+            <td class="tdItem">數量</td>
             <td>
                 <input id="colJ_val" type="text" autocomplete="off" inputmode="decimal" class="inputResult"/>
             </td>
-            <td class="tdItem">複盤數量</td>
+            <td class="tdItem">數量</td>
             <td>
                 <input id="colK_val" type="text" autocomplete="off" inputmode="decimal" class="inputResult"/>
             </td>            
         </tr>
         <tr>
-            <td class="tdItem">初盤人員</td>
+            <td class="tdItem">人員</td>
             <td>
                 <input id="colO_val" type="text" autocomplete="on"  inputmode="text" class="inputResult"/>
             </td>
-            <td class="tdItem">複盤人員</td>
+            <td class="tdItem">人員</td>
             <td>
                 <input id="colQ_val" type="text" autocomplete="on"  inputmode="text" class="inputResult"/>
             </td>     
         </tr>
         <tr>
-            <td class="tdItem">初盤時間</td>
+            <td class="tdItem">時間</td>
             <td>
                 <input id="colP_val" type="text" autocomplete="off" inputmode="none" class="inputResult"/>
             </td>
-            <td class="tdItem">複盤時間</td>
+            <td class="tdItem">時間</td>
             <td>
                 <input id="colR_val" type="text" autocomplete="off" inputmode="none" class="inputResult"/>
             </td>     
@@ -228,7 +231,7 @@
                         colE.innerHTML = returnDataArray[4];
                         colF.innerHTML = "( " + returnDataArray[5] + " )";
                         colG.innerHTML = returnDataArray[6];
-                        colH.innerHTML = "　(單位：" + returnDataArray[7] + ")";
+                        colH.innerHTML = "　(" + returnDataArray[7] + ")";
                         colI.innerHTML = returnDataArray[8];
 
                         colJ.value = returnDataArray[9]; colK.value = returnDataArray[10];
