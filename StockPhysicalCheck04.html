@@ -16,9 +16,9 @@
     .tdValue { width:32%; font-size:4vw; }
         
     .inputQuery  { background-color: lightgreen; width:95%; font-size:4vw; border:none; overflow:auto; box-sizing: border-box;}
-    .inputQuery1 { background-color: lightgreen; width:95%; font-size:4vw; border:none; overflow:auto; box-sizing: border-box;}
-    .inputQuery2 { background-color: lightgreen; width:95%; font-size:4vw; border:none; overflow:auto; box-sizing: border-box;}
     .inputResult { width:95%; font-size:4vw; border:none; overflow:auto; box-sizing: border-box;}
+    .inputResult1 { width:95%; font-size:4vw; border:none; overflow:auto; box-sizing: border-box;}
+    .inputResult2 { width:95%; font-size:4vw; border:none; overflow:auto; box-sizing: border-box;}
 </style>
 </head>
 <body>
@@ -26,7 +26,7 @@
         <tr>
             <td class="tdItem">盤點別</td>
             <td>
-                <select class="inputQuery" id="stockCheckNo" onChange="checkSeq()";>
+                <select class="inputQuery" id="stockCheckNo" onChange="checkSeq()">
                     <option value = "initialSetting">請選擇....</option>
                     <option value = "1stCheck">初盤</option>
                     <option value = "2ndCheck" >複盤</option>
@@ -89,31 +89,31 @@
         <tr>
             <td class="tdItem">數量</td>
             <td>
-                <input id="colJ_val" type="text" autocomplete="off" inputmode="decimal" class="inputResult"/>
+                <input id="colJ_val" type="text" autocomplete="off" inputmode="decimal" class="inputResult1"/>
             </td>
             <td class="tdItem">數量</td>
             <td>
-                <input id="colK_val" type="text" autocomplete="off" inputmode="decimal" class="inputResult"/>
+                <input id="colK_val" type="text" autocomplete="off" inputmode="decimal" class="inputResult2"/>
             </td>            
         </tr>
         <tr>
             <td class="tdItem">人員</td>
             <td>
-                <input id="colO_val" type="text" autocomplete="on"  inputmode="text" class="inputResult"/>
+                <input id="colO_val" type="text" autocomplete="on"  inputmode="text" class="inputResult1"/>
             </td>
             <td class="tdItem">人員</td>
             <td>
-                <input id="colQ_val" type="text" autocomplete="on"  inputmode="text" class="inputResult"/>
+                <input id="colQ_val" type="text" autocomplete="on"  inputmode="text" class="inputResult2"/>
             </td>     
         </tr>
         <tr>
             <td class="tdItem">時間</td>
             <td>
-                <input id="colP_val" type="text" autocomplete="off" inputmode="none" class="inputResult"/>
+                <input id="colP_val" type="text" autocomplete="off" inputmode="none" class="inputResult1"/>
             </td>
             <td class="tdItem">時間</td>
             <td>
-                <input id="colR_val" type="text" autocomplete="off" inputmode="none" class="inputResult"/>
+                <input id="colR_val" type="text" autocomplete="off" inputmode="none" class="inputResult2"/>
             </td>     
         </tr>        
         <tr>
@@ -167,14 +167,30 @@
             }
         }
         function inputSwitch() {
-            chkSequence = stockCheckNoObj.value;
-            colJ.disabled = true;   colO.disabled = true;   colP.disabled = true;
-            colK.disabled = true;   colQ.disabled = true;   colR.disabled = true;
-            if (chkSequence == "1stCheck") { 
+            chkSequence = stockCheckNoObj.value;            
+            if (chkSequence == "1stCheck") {
+                inputFieldAttr("inputResult1", "yellow", "unchange");
+                inputFieldAttr("inputResult2", "white", "unchange");
                 colJ.disabled = false;  colO.disabled = false;  colP.disabled = false; 
+                colK.disabled = true;   colQ.disabled = true;   colR.disabled = true;
+                // colJ.value = "";
+                colO.value = CheckerIdObj.value;
+                colP.value = "";
             }
-            else if (chkSequence == "2ndCheck") { 
-                colK.disabled = false;  colQ.disabled = false;  colR.disabled = false; 
+            else if (chkSequence == "2ndCheck") {
+                inputFieldAttr("inputResult1", "white", "unchange");
+                inputFieldAttr("inputResult2", "yellow", "unchange");
+                colJ.disabled = true;   colO.disabled = true;   colP.disabled = true;
+                colK.disabled = false;  colQ.disabled = false;  colR.disabled = false;
+                // colK.value = "";
+                colQ.value = CheckerIdObj.value;
+                colR.value = "";
+            }
+            else {
+                colJ.disabled = true;   colO.disabled = true;   colP.disabled = true;
+                colK.disabled = true;   colQ.disabled = true;   colR.disabled = true;
+                inputFieldAttr("inputResult1", "white", "unchange");
+                inputFieldAttr("inputResult2", "white", "unchange");
             }
         }
         function overwrite(){
@@ -191,8 +207,13 @@
                 editMode = overwrite();
             }
 
-            if (editMode == "yes") { inputSwitch(chkSequence); }
-            else {inputSwitch("allDisable");}
+            if (editMode == "yes") { 
+                inputSwitch();
+            }
+            else {
+                stockCheckNoObj.value = "initialSetting"; 
+                inputSwitch();
+            }
         }
         // read data from google sheet by 底稿編號/底稿序號
         // -----------------------------------------------------------------------------
@@ -200,7 +221,8 @@
             //清空所有input欄位，但保留盤點人員姓名
             var colAV = colA.value;     var colBV = colB.value ;
             var checkerIdV = CheckerIdObj.value ;
-            inputFieldAttr("white", "");                
+            inputFieldAttr("inputResult1", "white", "");
+            inputFieldAttr("inputResult2", "white", "");              
             colA.value = colAV;
             colB.value = colBV;
             CheckerIdObj.value = checkerIdV;
@@ -226,7 +248,7 @@
                 return; 
                 CheckerIdObj.style.backgrouldColor = "lightgreen"; 
             };
-            inputSwitch("allDisable");
+            inputSwitch();
             serialNo = colB.value;
             clearForm();
             
@@ -262,7 +284,7 @@
                         }
 
                         inquiryStatusObj.style.color = "blue"; inquiryStatusObj.innerHTML = "查詢成功";                        
-                        inputFieldAttr("yellow", "unchange");
+                        // inputFieldAttr("yellow", "unchange");
                         inquiryTimer = setTimeout(function(){ inquiryStatusObj.innerHTML = ""; }, 5000);
                         checkSeqTimer = setTimeout(function(){ checkSeq();}, 1000);
                     }
@@ -310,8 +332,13 @@
                     if(response == "uploaded") {
                         sendStatusObj.style.color = "blue";
                         sendStatusObj.innerHTML = "上傳成功";
-                        inputFieldAttr("lightgray", "unchange");
-                        inputSwitch("allDisable");
+                        if (chkSequence == "1stCheck") {
+                            inputFieldAttr("inputResult1", "lightgray", "unchange");
+                        }
+                        else if (chkSequence == "2ndCheck") {
+                            inputFieldAttr("inputResult2", "lightgray", "unchange");
+                        }
+                        // inputSwitch();
                         
                         colB.focus();
                         sendTimer = setTimeout(function(){ sendStatusObj.innerHTML = ""; }, 5000);
