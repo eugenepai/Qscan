@@ -47,7 +47,7 @@
             </td>
             <td class="tdValue" rowspan="2" colspan="2">
                 <button id="getStockBtn" style="background-color:lightgreen; line-height:1em; padding:10px;">查詢底稿</button>
-                <span id="inquiryStatus" style="font-weight:bolder; background-color: lightgray;"></span>
+                <span id="inquiryStatus" style="font-weight:bolder; font-size:2vw;"></span>
             </td>            
         </tr>
         <tr>
@@ -115,11 +115,11 @@
         <tr>
             <td class="tdItem">時間</td>
             <td>
-                <input id="colP_val" type="text" autocomplete="off" inputmode="none" class="inputResult1"/>
+                <input id="colP_val" type="text" autocomplete="off" inputmode="none" class="inputResult"/>
             </td>
             <td class="tdItem">時間</td>
             <td>
-                <input id="colR_val" type="text" autocomplete="off" inputmode="none" class="inputResult2"/>
+                <input id="colR_val" type="text" autocomplete="off" inputmode="none" class="inputResult"/>
             </td>     
         </tr>        
         <tr>
@@ -266,6 +266,7 @@
             });
         };
         function rowsEachSheet(){
+            alert("hh");
             for (var i=1 ; i <= dict[colA.value] ; i++) {
                             var option = document.createElement("option");
                             var s = "00000" + i;                                
@@ -273,6 +274,7 @@
                             option.text = s.slice(-5);;
                             colB.appendChild(option);
                         }
+                        // colB.options[10].selected = true                  
         }
         function readFromGS() {
             getStockBtnObj.style.backgroundColor = "lightgray";
