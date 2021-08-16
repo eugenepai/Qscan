@@ -46,8 +46,8 @@
                 <!-- <input  id="colA_val" type="text" autocomplete="on" inputmode="text" placeholder="底稿編號" class="inputQuery"/> -->
             </td>
             <td class="tdValue" rowspan="2" colspan="2">
-                <button id="getStockBtn" style="background-color:lightgreen; line-height:1em; padding:10px;">查詢底稿</button>
-                <span id="inquiryStatus" style="font-weight:bolder; font-size:2vw;"></span>
+                <button id="getStockBtn" style="background-color:lightgreen; line-height:4vw; padding:10px;">查詢底稿</button>
+                <span id="inquiryStatus" style="font-weight:bolder; font-size:3vw;"></span>
             </td>            
         </tr>
         <tr>
@@ -129,10 +129,14 @@
             </td>            
         </tr>
         <tr>
-            <td class="tdValue" colspan="4">
-                <button id="uploadBtn" style="background-color:yellow;">上傳資料</button>
-                <span id="sendStatus" style="font-weight:bolder;"></span>
-            </td>            
+            <td class="tdValue" colspan="3" style="text-align:justify;">
+                <button id="uploadBtn" style="display:inline-block; background-color:yellow;">上傳資料</button>
+                <span id="sendStatus" style="display:inline-block; font-weight:bolder;"></span>
+               
+            </td>
+            <td>
+                <button id="uploadBtn" style="display:inline-block; background-color:lightgray;" onclick="sysReload()">重新載入</button>
+            </td>
         </tr>
     </table>
  
@@ -163,6 +167,7 @@
         var checkerName=CheckerIdObj.value;
         var chkSequence = stockCheckNoObj.value;
         //---------------------------------------------------------------------------------------------------------
+        function sysReload(){window.location.reload();}
         function inputFieldAttr(classNodeName, fieldColor, fieldValue) {
             var x = document.getElementsByClassName(classNodeName);
             if (fieldColor != "unchange") {
