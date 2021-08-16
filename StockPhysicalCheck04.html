@@ -22,7 +22,7 @@
 <body>
     <table class="tableMain" border="1" >
         <tr>
-            <td class="tdItem">盤點別:</td>
+            <td class="tdItem">盤點別</td>
             <td class="tdInput">
                 <select class="forInput" id="stockCheckNo" onChange="inputSwitch('initialSetting')";>
                     <option>請選擇....</option>
@@ -30,13 +30,13 @@
                     <option value = "2ndCheck" >複盤</option>
                 </select>
             </td>
-            <td>盤點人：</td>
+            <td>盤點人</td>
             <td>
                 <input id="CheckerId" type="text" autocomplete="on" inputmode="text" placeholder="盤點人" class="forInput"/>
             </td>
         </tr>
         <tr>
-            <td class="tdItem">底稿編號：</td>
+            <td class="tdItem">底稿編號</td>
             <td class="tdInput">
                 <input id="colA_val" type="text" autocomplete="on" inputmode="text" placeholder="底稿編號" class="forInput"/>
             </td>
@@ -46,7 +46,7 @@
             
         </tr>
         <tr>
-            <td>底稿序號：</td>
+            <td>底稿序號</td>
             <td>
                 <input id="colB_val" type="text" autocomplete="on" inputmode="text" placeholder="底稿序號" class="forInput"/>
             </td>
@@ -58,63 +58,63 @@
             <td class="tdInput" colspan="4" style="text-align:center; background-color:lightgray;"> 【盤點項目】</td>
         </tr>
         <tr>
-            <td class="tdItem">品號：</td>
+            <td class="tdItem">品號</td>
             <td class="tdInput" colspan="3"><span id="colC_val"> </span> </td>            
         </tr>
         <tr>
-            <td class="tdItem">品名：</td>
+            <td class="tdItem">品名</td>
             <td class="tdInput" colspan="3"> <span id="colD_val"> </span> </td>            
         </tr>
         <tr>
-            <td class="tdItem">規格：</td>
+            <td class="tdItem">規格</td>
             <td class="tdInput"> <span id="colE_val"> </span> </td>
-            <td class="tdItem">批號：</td>
+            <td class="tdItem">批號</td>
             <td class="tdInput"> <span id="colI_val"> </span> </td>     
         </tr>
         <tr>
-            <td class="tdItem">帳面數量：</td>
+            <td class="tdItem">帳面數量</td>
             <td class="tdInput"> <span id="colM_val"> </span><span id="colH_val"> </td>
-            <td class="tdItem">庫別：</td>
+            <td class="tdItem">庫別</td>
             <td class="tdInput"><span id="colF_val"> </span> <span id="colG_val"> </span></td>            
         </tr>
         <tr>
             <td class="tdInput" colspan="4" style="text-align:center; background-color:lightgray;"> 【盤點結果】</td>
         </tr>
         <tr>
-            <td class="tdItem">初盤數量：</td>
+            <td class="tdItem">初盤數量</td>
             <td class="tdInput">
                 <input id="colJ_val" type="text" autocomplete="off" inputmode="decimal" class="forInputRslt"/>
             </td>
-            <td class="tdItem">初盤人員：</td>
+            <td class="tdItem">初盤人員</td>
             <td class="tdInput">
                 <input id="colO_val" type="text" autocomplete="on"  inputmode="text" class="forInputRslt"/>
             </td>
         </tr>
         <tr>
-            <td class="tdItem">初盤時間：</td>
+            <td class="tdItem">初盤時間</td>
             <td class="tdInput" colspan="3">
                 <input id="colP_val" type="text" autocomplete="off" inputmode="none" class="forInputRslt"/>
             </td>            
         </tr>
 
         <tr>
-            <td class="tdItem">複盤數量：</td>
+            <td class="tdItem">複盤數量</td>
             <td class="tdInput">
                 <input id="colK_val" type="text" autocomplete="off" inputmode="decimal" class="forInputRslt"/>
             </td>
-            <td class="tdItem">複盤人員：</td>
+            <td class="tdItem">複盤人員</td>
             <td class="tdInput">
                 <input id="colQ_val" type="text" autocomplete="on"  inputmode="text" class="forInputRslt"/>
             </td>     
         </tr>
         <tr>
-            <td class="tdItem">複盤時間：</td>
+            <td class="tdItem">複盤時間</td>
             <td class="tdInput" colspan="3">
                 <input id="colR_val" type="text" autocomplete="off" inputmode="none" class="forInputRslt"/>
             </td>            
         </tr>
         <tr>
-            <td class="tdItem">備　　註：</td>
+            <td class="tdItem">備註</td>
             <td class="tdInput" colspan="3">
                 <input id="colN_val" type="text" autocomplete="off" inputmode="text" class="forInputRslt"/>
             </td>            
@@ -148,8 +148,9 @@
         stockCheckNoObj = document.getElementById("stockCheckNo");
         CheckerIdObj = document.getElementById("CheckerId");
         //---------------------------------------------------------------------------------------------------------
-        function inputFieldAttr(fieldColor, fieldValue) {
-            var x = document.getElementsByTagName("input");
+        function inputFieldAttr(classNodeName, fieldColor, fieldValue) {
+            // var x = document.getElementsByTagName("input");
+            var x = document.getElementsByClassName(classNodeName);
             if (fieldColor != "unchange") {
                for (var i = 0; i < x.length; i++) { x[i].style.backgroundColor = fieldColor; }
             }
