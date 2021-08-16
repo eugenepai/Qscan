@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.96, maximum-scale=0.96">
-    <title>PCI Inventory Physical Check v4</title>
+    <title>PCI Inventory Physical Check v5</title>
 
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
@@ -40,7 +40,10 @@
         <tr>
             <td class="tdItem">底稿編號</td>
             <td>
-                <input  id="colA_val" type="text" autocomplete="on" inputmode="text" placeholder="底稿編號" class="inputQuery"/>
+                <select class="inputQuery" id="colA_val" onChange="rowsEachSheet()">
+                    <option value="listWorksheetName">底稿編號</option>
+                </select>
+                <!-- <input  id="colA_val" type="text" autocomplete="on" inputmode="text" placeholder="底稿編號" class="inputQuery"/> -->
             </td>
             <td class="tdValue" rowspan="2" colspan="2">
                 <button id="getStockBtn" style="background-color:lightgreen; line-height:1em; padding:10px;">查詢底稿</button>
@@ -50,7 +53,10 @@
         <tr>
             <td class="tdItem">底稿序號</td>
             <td>
-                <input   id="colB_val" type="text" autocomplete="on" inputmode="text" placeholder="底稿序號" class="inputQuery"/>
+                <select class="inputQuery" id="colB_val">
+                    <option value="rowsEachSheet">底稿序號</option>
+                </select>
+                <!-- <input   id="colB_val" type="text" autocomplete="on" inputmode="text" placeholder="底稿序號" class="inputQuery"/> -->
             </td>
             
         </tr>
@@ -133,7 +139,7 @@
     <!-- ******************************************************************************************** -->
     <script>
         // google sheet URLs
-        GSAppsScript="https://script.google.com/macros/s/AKfycbzNCKNDTZ-BpVLazUVuJnQgfbQzeY-69b_h3CIOc-x2KX_OeyzM3uUd7ZngGA4PTYmb/exec"
+        GSAppsScript="https://script.google.com/macros/s/AKfycbzRCzKoVVVjZBQ79wqcZKEF7yfgn7U3Aee4aqyqR3COLIf2R09wvTCrdgs4gRabwfa3/exec"
         GSSWorkbookUrl="https://docs.google.com/spreadsheets/d/1Fs4uEbpn21Ss9qOs0pCAmgpySs3WtpNzONuptNytmME/edit#gid=1048350866"
         // 盤點清冊項目
         colA = document.getElementById("colA_val"); colB = document.getElementById("colB_val");
@@ -229,8 +235,47 @@
 
             colC.innerHTML = "";colD.innerHTML = "";colE.innerHTML = "";colI.innerHTML = "";
             colH.innerHTML = "";colM.innerHTML = ""; colF.innerHTML = "";colG.innerHTML = "";
-        }        
+        }
+        
+        readWroksheetRecords();
 
+        function readWroksheetRecords() {
+            inquiryStatusObj.innerHTML="資料庫連結中...";
+            loadingTimer = setTimeout(function(){ inquiryStatusObj.innerHTML=""; }, 3000);
+            $.ajax({
+                type: "post",url: GSAppsScript,
+                data: { "GSSWorkbookUrl":GSSWorkbookUrl, "method":"read", "worksheetName":"any", "query":"00001" }, 
+                success: function(returnData) {
+                    if(returnData != "") {                        
+                        const returnDataArray = returnData.split('｜');
+                        dict = {};
+                        for (var i=18 ; i<returnDataArray.length ; i+=2) {
+                            dict[returnDataArray[i]] = returnDataArray[i+1]
+                            var option = document.createElement("option");
+                            option.value = returnDataArray[i];
+                            option.text = returnDataArray[i];
+                            colA.appendChild(option);
+                        }
+                    }
+                },                
+                 error: function(){
+                        inquiryStatusObj.style.color = "red";
+                        inquiryStatusObj.innerHTML = "連結GSA失敗";
+                        inquiryTimer = setTimeout(function(){ inquiryStatusObj.innerHTML=""; }, 5000);
+                }
+            });
+        };
+        function rowsEachSheet(){
+            alert(dict[colA.value]);
+            alert(colA.value);
+            for (var i=1 ; i <= dict[colA.value] ; i++) {
+                            var option = document.createElement("option");
+                            var s = "00000" + i;                                
+                            option.value = s.slice(-5);;
+                            option.text = s.slice(-5);;
+                            colB.appendChild(option);
+                        }
+        }
         function readFromGS() {
             getStockBtnObj.style.backgroundColor = "lightgray";
             if (colA.value =="") {
@@ -256,6 +301,7 @@
                 type: "post",url: GSAppsScript,
                 data: { "GSSWorkbookUrl":GSSWorkbookUrl, "method":"read", "worksheetName":colA.value, "query":colB.value }, 
                 success: function(returnData) { 
+                    // alert(returnData);
                     if(returnData != "") {                        
                         //return data 處理
                         const returnDataArray = returnData.split('｜');
