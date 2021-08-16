@@ -12,12 +12,12 @@
     button{ background-color:white; border: 1px solid black; font-size:5vw; margin:0.8vw; border-radius:10px; }
     td {border: 1px solid black;}
     
-    .tableMain {width:100%; font-size:3vw; text-indent:0.1em; border-collapse: collapse;  table-layout:fixed; }
+    .tableMain {width:100%; font-size:3vw; text-indent:0.1em; border-collapse:collapse;  table-layout:fixed; }
     .tdItem { width:15%; font-size:3vw; text-align:center; }
     .tdValue { width:32%; font-size:4vw; }
         
-    .inputQuery { background-color: lightgreen; width:85%; font-size:4vw; border:none; overflow:auto; }
-    .inputResult { width:85%; font-size:4vw; border:none; overflow:auto; }
+    .inputQuery { background-color: lightgreen; width:85%; font-size:4vw; border:none; overflow:auto; box-sizing: border-box;}
+    .inputResult { width:85%; font-size:4vw; border:none; overflow:auto; box-sizing: border-box;}
 </style>
 </head>
 <body>
@@ -42,7 +42,7 @@
                 <input  id="colA_val" type="text" autocomplete="on" inputmode="text" placeholder="底稿編號" class="inputQuery"/>
             </td>
             <td class="tdValue" rowspan="2" colspan="2">
-                <button id="getStockBtn" style="background-color:lightgreen; line-height:1em; padding:10px;">查詢<br/>底稿</button>
+                <button id="getStockBtn" style="background-color:lightgreen; line-height:1em; padding:10px;">查詢.<br/>底稿</button>
                 <span id="inquiryStatus" style="font-weight:bolder; background-color: lightgray;"></span>
             </td>            
         </tr>
