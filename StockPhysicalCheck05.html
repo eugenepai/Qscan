@@ -253,7 +253,8 @@
                 success: function(returnData) {
                     if(returnData != "") { 
                         inquiryStatusObj.style.color = "blue";
-                        inquiryStatusObj.innerHTML="資料庫連結OK...";                       
+                        inquiryStatusObj.innerHTML="資料庫連結OK...";
+                        inquiryTimer = setTimeout(function(){ inquiryStatusObj.innerHTML=""; }, 3000);
                         const returnDataArray = returnData.split('｜');
                         dict = {};
                         for (var i=18 ; i<returnDataArray.length ; i+=2) {
@@ -268,7 +269,7 @@
                  error: function(){
                         inquiryStatusObj.style.color = "red";
                         inquiryStatusObj.innerHTML = "連結GSA失敗";
-                        inquiryTimer = setTimeout(function(){ inquiryStatusObj.innerHTML=""; }, 5000);
+                        inquiryTimer = setTimeout(function(){ inquiryStatusObj.innerHTML=""; }, 3000);
                 }
             });
         };
