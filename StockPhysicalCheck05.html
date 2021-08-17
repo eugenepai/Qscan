@@ -115,11 +115,11 @@
         <tr>
             <td class="tdItem">時間</td>
             <td>
-                <input id="colP_val" type="text" autocomplete="off" inputmode="none" class="inputResult"/>
+                <input id="colP_val" type="text" autocomplete="off" inputmode="none" class="inputResult" style="font-size:3vw;"/>
             </td>
             <td class="tdItem">時間</td>
             <td>
-                <input id="colR_val" type="text" autocomplete="off" inputmode="none" class="inputResult"/>
+                <input id="colR_val" type="text" autocomplete="off" inputmode="none" class="inputResult" style="font-size:3vw;"/>
             </td>     
         </tr>        
         <tr>
@@ -163,7 +163,6 @@
         getStockBtnObj = document.getElementById("getStockBtn");
         uploadBtnObj = document.getElementById("uploadBtn");
         // 控制變數
-        var serialNo;
         var chkSequence = stockCheckNoObj.value;
         //---------------------------------------------------------------------------------------------------------
         function sysReload(){ window.location.reload(); }
@@ -283,6 +282,7 @@
                         }
                         // colB.options[10].selected = true                  
         }
+
         function readFromGS() {
             getStockBtnObj.style.backgroundColor = "lightgray";
             if (colA.value =="") {
@@ -301,7 +301,6 @@
                 CheckerIdObj.style.backgrouldColor = "lightgreen"; 
             };
             inputSwitch();
-            serialNo = colB.value;
             clearForm();
             
             $.ajax({
@@ -351,12 +350,21 @@
             });
         };
         // ------send 盤點資料 to google sheet ----------------------------------------------------------------         
+        function qtyCheck(stdQty, actualQty){
+            var qtyDiff = true;
+            if (stdQty != actualQty) {
+                qtyDiff = confirm("數量有差異，要上傳嗎?\n\n帳面數量=" + stdQty + "\n盤點數量=" + actualQty + "")
+            }
+            if ( qtyDiff ) { return "yes"; } 
+            else { return "no"; }
+        }
         function sendData2GS() {
             var newDate = new Date();
             var uploadTime = newDate.toLocaleDateString() + " " + newDate.toLocaleTimeString();
             dataUpload = {};
-            
+                       
            if (chkSequence == "1stCheck") {
+                if (qtyCheck(colM.innerHTML, colJ.value) != "yes" ) { return;};
                 colP.value = uploadTime;
                 dataUpload = {   
                     "method": "write", "GSSWorkbookUrl": GSSWorkbookUrl, "worksheetName": colA.value,
