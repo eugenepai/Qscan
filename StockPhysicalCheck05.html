@@ -27,7 +27,7 @@
             <td class="tdItem">盤點別</td>
             <td>
                 <select class="inputQuery" id="stockCheckNo" onChange="checkSeq()">
-                    <option value = "initialSetting">請選擇....</option>
+                    <option value = "initialSetting">查詢</option>
                     <option value = "1stCheck">初盤</option>
                     <option value = "2ndCheck" >複盤</option>
                 </select>
@@ -143,8 +143,9 @@
     <!-- ******************************************************************************************** -->
     <script>
         // google sheet URLs
-        GSAppsScript="https://script.google.com/macros/s/AKfycbzRCzKoVVVjZBQ79wqcZKEF7yfgn7U3Aee4aqyqR3COLIf2R09wvTCrdgs4gRabwfa3/exec"
-        GSSWorkbookUrl="https://docs.google.com/spreadsheets/d/1Fs4uEbpn21Ss9qOs0pCAmgpySs3WtpNzONuptNytmME/edit#gid=1048350866"
+        GSAppsScript="https://script.google.com/macros/s/AKfycbyb3pBz9ksAZvfHt00xyzPDbNdVplRIb5AGB90sGmVefcsMNtN_934jvXSFU_XN0kk8/exec"
+        // GSSWorkbookUrl="https://docs.google.com/spreadsheets/d/1Fs4uEbpn21Ss9qOs0pCAmgpySs3WtpNzONuptNytmME/edit#gid=1048350866"
+        GSSWorkbookUrl = "https://docs.google.com/spreadsheets/d/1-e5kHbJTvx6iYCtQKnpLAY6ykpm6oBrAebQxxJLpihU/edit#gid=1831511547"
         // 盤點清冊項目
         colA = document.getElementById("colA_val"); colB = document.getElementById("colB_val");
         colC = document.getElementById("colC_val"); colD = document.getElementById("colD_val");
@@ -164,7 +165,6 @@
         uploadBtnObj = document.getElementById("uploadBtn");
         // 控制變數
         var serialNo;
-        var checkerName=CheckerIdObj.value;
         var chkSequence = stockCheckNoObj.value;
         //---------------------------------------------------------------------------------------------------------
         function sysReload(){window.location.reload();}
@@ -245,13 +245,15 @@
         readWroksheetRecords();
 
         function readWroksheetRecords() {
-            inquiryStatusObj.innerHTML="資料庫連結中...";
+            inquiryStatusObj.innerHTML="連結資料庫中...";
             loadingTimer = setTimeout(function(){ inquiryStatusObj.innerHTML=""; }, 3000);
             $.ajax({
                 type: "post",url: GSAppsScript,
                 data: { "GSSWorkbookUrl":GSSWorkbookUrl, "method":"read", "worksheetName":"any", "query":"00001" }, 
                 success: function(returnData) {
-                    if(returnData != "") {                        
+                    if(returnData != "") { 
+                        inquiryStatusObj.style.color = "blue";
+                        inquiryStatusObj.innerHTML="資料庫連結OK...";                       
                         const returnDataArray = returnData.split('｜');
                         dict = {};
                         for (var i=18 ; i<returnDataArray.length ; i+=2) {
@@ -271,7 +273,6 @@
             });
         };
         function rowsEachSheet(){
-            alert("hh");
             for (var i=1 ; i <= dict[colA.value] ; i++) {
                             var option = document.createElement("option");
                             var s = "00000" + i;                                
@@ -355,7 +356,6 @@
             dataUpload = {};
             
            if (chkSequence == "1stCheck") {
-                // checkerName = colO.value;
                 colP.value = uploadTime;
                 dataUpload = {   
                     "method": "write", "GSSWorkbookUrl": GSSWorkbookUrl, "worksheetName": colA.value,
@@ -363,7 +363,6 @@
                     "chkSequence":chkSequence };
             }
             else if (chkSequence == "2ndCheck") {
-                // checkerName = colQ.value;
                 colR.value = uploadTime;
                 dataUpload = {   
                     "method": "write", "GSSWorkbookUrl": GSSWorkbookUrl, "worksheetName": colA.value,
