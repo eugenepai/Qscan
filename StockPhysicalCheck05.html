@@ -144,7 +144,6 @@
     <script>
         // google sheet URLs
         GSAppsScript="https://script.google.com/macros/s/AKfycbyb3pBz9ksAZvfHt00xyzPDbNdVplRIb5AGB90sGmVefcsMNtN_934jvXSFU_XN0kk8/exec"
-        // GSSWorkbookUrl="https://docs.google.com/spreadsheets/d/1Fs4uEbpn21Ss9qOs0pCAmgpySs3WtpNzONuptNytmME/edit#gid=1048350866"
         GSSWorkbookUrl = "https://docs.google.com/spreadsheets/d/1-e5kHbJTvx6iYCtQKnpLAY6ykpm6oBrAebQxxJLpihU/edit#gid=1831511547"
         // 盤點清冊項目
         colA = document.getElementById("colA_val"); colB = document.getElementById("colB_val");
@@ -167,7 +166,7 @@
         var serialNo;
         var chkSequence = stockCheckNoObj.value;
         //---------------------------------------------------------------------------------------------------------
-        function sysReload(){window.location.reload();}
+        function sysReload(){ window.location.reload(); }
         function inputFieldAttr(classNodeName, fieldColor, fieldValue) {
             var x = document.getElementsByClassName(classNodeName);
             if (fieldColor != "unchange") {
@@ -233,7 +232,8 @@
             var colAV = colA.value;     var colBV = colB.value ;
             var checkerIdV = CheckerIdObj.value ;
             inputFieldAttr("inputResult1", "white", "");
-            inputFieldAttr("inputResult2", "white", "");              
+            inputFieldAttr("inputResult2", "white", "");
+            inputFieldAttr("inputResult", "white", "");
             colA.value = colAV;
             colB.value = colBV;
             CheckerIdObj.value = checkerIdV;
