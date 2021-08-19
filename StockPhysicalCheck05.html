@@ -375,6 +375,7 @@
                     "chkSequence":chkSequence };
             }
             else if (chkSequence == "2ndCheck") {
+                if (qtyCheck(colM.innerHTML, colK.value) != "yes" ) { return;};
                 colR.value = uploadTime;
                 dataUpload = {   
                     "method": "write", "GSSWorkbookUrl": GSSWorkbookUrl, "worksheetName": colA.value,
