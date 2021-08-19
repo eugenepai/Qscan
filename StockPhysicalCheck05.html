@@ -288,6 +288,18 @@
 
         function readFromGS() {
             getStockBtnObj.style.backgroundColor = "lightgray";
+            var wTop = window.screen.height *0.25 -50 ;
+            var wLeft = window.screen.width *0.5 -50 ;
+            var wPosition = 'width=100,height=100, top=' + wTop + ', left=' + wLeft;
+            var w = window.open('查詢中','查詢中2', wPosition);
+            w.document.write('查詢中3');
+            w.focus();
+            setTimeout(function() {w.close();}, 5000);
+
+            
+
+
+
             if (colA.value =="") {
                 alert("底稿編號 不允許空白"); 
                 return; 
